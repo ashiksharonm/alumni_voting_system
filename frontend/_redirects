@@ -1,0 +1,16 @@
+# Netlify redirects
+
+# Landing page
+/    /index.html   200
+
+# Signup page
+/signup    /index.html   200
+
+# Home page
+/home    /index.html   200
+
+# Login page
+/login    /index.html   200
+
+# 404 Not Found page
+/*    /index.html   200
