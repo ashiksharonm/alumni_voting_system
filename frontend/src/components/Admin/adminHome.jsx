@@ -1,14 +1,14 @@
-// AdminHome.js
-import React, { useState } from "react";
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import CandidateUpload from "./CandidateUpload";
-import ChangeElectionPhase from "./ChangeElectionPhase";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Results from "./Results";
 import LICETLogo from "../licet-logo.png";
 import "./adminHome.css";
+import { AuthContext } from "../../auth/Authcontext";
 
 const AdminHome = () => {
-  const [electionPhase, setElectionPhase] = useState("voting");
+  const Navigate = useNavigate();
+  const { currentUsers } = useContext(AuthContext);
+
   const [electionStatus, setElectionStatus] = useState({
     president: false,
     vicePresident: false,
@@ -16,15 +16,8 @@ const AdminHome = () => {
     treasurer: false,
     executives: false,
   });
-  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    navigate("/admin-login");
-  };
-
-  const handleLogoClick = () => {
-    navigate("/admin");
-  };
+console.log(currentUsers);
 
   const handleToggle = (election) => {
     setElectionStatus((prevStatus) => ({
@@ -33,17 +26,22 @@ const AdminHome = () => {
     }));
   };
 
+  const handleLogout = () => {
+    Navigate("/admin-login");
+  };
+
+ 
   return (
     <div className="admin-container">
       <div className="vote-container">
         <div className="header">
           <div className="header-left">
-            <Link to="/admin" onClick={handleLogoClick}>
+            <Link to="/admin">
               <img src={LICETLogo} alt="LICET Logo" className="logo" />
             </Link>
           </div>
           <div className="header-center">
-            <h1 className="election-title">LICET ALUMNI COUNCIL ELECTION <br/> ADMIN LOGIN </h1>
+            <h1 className="election-title">LICET ALUMNI COUNCIL ELECTION</h1>
           </div>
           <div className="header-right">
             <nav className="nav-menu">
@@ -51,11 +49,6 @@ const AdminHome = () => {
                 <Link to="/admin/candidate-upload" className="menu-link">
                   Candidates&nbsp;&nbsp;&nbsp;
                 </Link>
-
-                <Link to="/admin/change-election-phase" className="menu-link">
-                  Elections&nbsp;&nbsp;&nbsp;
-                </Link>
-
                 <Link to="/admin/results" className="menu-link">
                   Results&nbsp;&nbsp;&nbsp;
                 </Link>
@@ -67,80 +60,46 @@ const AdminHome = () => {
           </div>
         </div>
         <div className="main-content">
-          <Routes>
-            <Route
-              path="/admin/candidate-upload"
-              element={<CandidateUpload />}
-            />
-            <Route
-              path="/admin/change-election-phase"
-              element={
-                <ChangeElectionPhase
-                  electionPhase={electionPhase}
-                  setElectionPhase={setElectionPhase}
-                />
-              }
-            />
-            <Route
-              path="/admin/results"
-              element={<Results electionPhase={electionPhase} />}
-            />
-          </Routes>
           <div className="election-status-container">
             <div className="election-status-card">
               <h2>President</h2>
-              <label className="toggle-switch">
-                <input
-                  type="checkbox"
-                  checked={electionStatus.president}
-                  onChange={() => handleToggle("president")}
-                />
-                <span className="slider"></span>
-              </label>
+              <br />
+              <p>Number of Candidates: 5</p>
+              <p>Total Votes: 100</p>
+              <br />
+              {/* Display any other relevant information */}
             </div>
             <div className="election-status-card">
               <h2>Vice President</h2>
-              <label className="toggle-switch">
-                <input
-                  type="checkbox"
-                  checked={electionStatus.vicePresident}
-                  onChange={() => handleToggle("vicePresident")}
-                />
-                <span className="slider"></span>
-              </label>
+              <br />
+              <p>Number of Candidates: 3</p>
+              <p>Total Votes: 50</p>
+              <br />
+              {/* Display any other relevant information */}
             </div>
             <div className="election-status-card">
               <h2>Secretary</h2>
-              <label className="toggle-switch">
-                <input
-                  type="checkbox"
-                  checked={electionStatus.secretary}
-                  onChange={() => handleToggle("secretary")}
-                />
-                <span className="slider"></span>
-              </label>
+              <br />
+              <p>Number of Candidates: 4</p>
+              <p>Total Votes: 75</p>
+              <br />
+              {/* Display any other relevant information */}
             </div>
             <div className="election-status-card">
               <h2>Treasurer</h2>
-              <label className="toggle-switch">
-                <input
-                  type="checkbox"
-                  checked={electionStatus.treasurer}
-                  onChange={() => handleToggle("treasurer")}
-                />
-                <span className="slider"></span>
-              </label>
+              <br />
+              <p>Number of Candidates: 2</p>
+              <p>Total Votes: 30</p>
+              <br />
+              {/* Display any other relevant information */}
             </div>
             <div className="election-status-card">
               <h2>Executives</h2>
-              <label className="toggle-switch">
-                <input
-                  type="checkbox"
-                  checked={electionStatus.executives}
-                  onChange={() => handleToggle("executives")}
-                />
-                <span className="slider"></span>
-              </label>
+              <br />
+              <p>Number of Candidates: 6</p>
+              <p>Total Votes: 120</p>
+              <br />
+              {/* Display any other relevant information */}
             </div>
           </div>
         </div>

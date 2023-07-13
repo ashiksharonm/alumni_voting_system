@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 import LICETLogo from "../licet-logo.png";
 import "./LoginPageAdmin.css";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../auth/Authcontext";
 
 const LoginPageAdmin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+
+  const { adminhome } = useContext(AuthContext);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -19,7 +23,7 @@ const LoginPageAdmin = () => {
 
   const navigate = useNavigate();
 
-  const validateForm = (event) => {
+  const validateForm = async (event) => {
     event.preventDefault();
 
     if (username !== "admin-licet" && password !== "licet@2023") {
@@ -39,13 +43,14 @@ const LoginPageAdmin = () => {
 
     // Send login request to the server or perform necessary actions for admin login
     console.log("Admin login successful");
+    await adminhome();
     navigate("/admin");
   };
 
   return (
     <div className="container">
       <img src={LICETLogo} alt="LICET Logo" className="logo" />
-      <h1 className="election-title-name">LICET ALUMNI COUNCIL ELECTION <br/>   <center> <p className="election-title-name1"> ADMIN LOGIN </p> </center> </h1>
+      <h1 className="election-title-name">LICET ALUMNI COUNCIL ELECTION</h1>
       <div className="login-card">
         <form onSubmit={validateForm}>
           <label htmlFor="username">Username:</label>

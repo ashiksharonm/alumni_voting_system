@@ -15,7 +15,9 @@ router.post("/api/user/vote", userController.setusrcandivtcnt);
 //router.post("/api/user/vote", userController.updatecandiVote);
 router.post("/api/user/logout", userController.logout);
 
+//=======================> User <====================
 
+router.post("/api/admin-login", userController.fetchCandi);
 
 module.exports = router;
   /*

@@ -126,14 +126,26 @@ const register = async (req, res) => {
  const fetchCandi= async function ( req,res) {
   try {
   
-    let data = req.body
-    let {id , name, regno, dob, batch , position , votecnt } = data
+    // let data = req.body
+    // let {id , name, regno, dob, batch , position , votecnt } = data
 
     let getUsers = await userproModel.find();
 
-    console.log(getUsers);
-    if (!getUsers)
-      return res.status(200).json(getUsers);
+    const positions = ["President", "Vice President", "Treasurer", "Joint Secretary", "Executive"];
+
+    const groupedNominees = {};
+    
+    for (const position of positions) {
+      groupedNominees[position] = getUsers.filter(nominee => nominee.position === position);
+    }
+    console.log(groupedNominees);
+
+    const jsonDocuments = (groupedNominees);
+
+    console.log(jsonDocuments);
+    if (getUsers)
+      return res.status(201).send({ data: jsonDocuments});;
+
     } catch (error) {
       return res.status(500).json(error.message);
     }
@@ -272,7 +284,6 @@ catch (error) {
 //==================> Logout user <=======================
 const logout = (req, res) => {
     res.status(200).json( "User has been logged out. ")
-    
 };
  
 module.exports = {loginUser, logout ,updatecandiVote ,setusrvtcnt,fetchCandi,setusrcandivtcnt};

@@ -1,6 +1,5 @@
 import React, { useContext,useState,useEffect } from "react";
 import "./Vote.css";
-import axios from "axios";
 import LICETLogo from "../licet-logo.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/Authcontext";
@@ -23,6 +22,15 @@ const Vote = () => {
     regno: ""
   });
  
+  const logcheck = async () => {
+  if (currentUser?.data?.votecnt === 14)
+  {
+   alert("Voted Already !! \n If not Contact ADMIN !!");
+   await logout();
+   history('/');
+  }
+};
+  logcheck();
   // const input  = currentUser?.data?.regno;
   //const userid =  currentUser?.data?._id;
  //console.log(bio);
@@ -90,6 +98,18 @@ const Vote = () => {
         ...prevSelectedNominees,
         [position]: [...(prevSelectedNominees[position] || []), id],
       }));
+
+      const updatedNominees = {
+        ...nominees,
+        [position]: nominees[position].map((nominee) => {
+          if (nominee.id === id) {
+            return { ...nominee, voted: true };
+          }
+          return nominee;
+        }),
+      };
+      setNominees(updatedNominees);
+
 
       // Check if user has voted for all elections
       const allVoted = nominees[position].every(
@@ -168,7 +188,7 @@ const Vote = () => {
                     Vote
                   </button>
                 ) : (
-                  <p>Voted</p>
+                  <p className="voted">Voted</p>
                 )}
               </div>
             ))}

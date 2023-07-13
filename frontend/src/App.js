@@ -4,6 +4,8 @@ import LoginPage from "./components/User/LoginPage";
 import LoginPageAdmin from "./components/Admin/LoginPageAdmin";
 import Vote from "./components/User/Vote";
 import AdminHome from "./components/Admin/adminHome";
+import CandidateUpload from "./components/Admin/CandidateUpload";
+import Results from "./components/Admin/Results";
 
 const App = () => {
   return (
@@ -11,9 +13,12 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/admin-login" element={<LoginPageAdmin />} />
         <Route path="/vote" element={<Vote />} />
         <Route path="/admin" element={<AdminHome />} />
+        <Route path="/admin-login" element={<LoginPageAdmin />} />
+      <Route path="/admin/*" element={<AdminHome />} />
+      <Route path="/admin/candidate-upload" element={<CandidateUpload />} />
+           <Route path="/admin/results" element={<Results />} />
       </Routes>
     </Router>
     </div>

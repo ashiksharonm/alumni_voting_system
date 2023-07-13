@@ -1,3 +1,4 @@
+/* CandidateUpload.css */
 .admin-container {
   display: flex;
   flex-direction: column;
@@ -26,17 +27,10 @@
   color: #fff;
 }
 
-.main-content {
+.content {
   padding: 20px;
 }
 
-.menu-link {
-  text-decoration: none;
-  color: inherit;
-  cursor: default;
-}
-
-/* Header Styles */
 .header {
   background-color: #627ab8;
   padding: 10px;
@@ -89,11 +83,7 @@
 
 .logout-button:hover {
   background-color: #f3f3f3;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2); /* Add box-shadow on hover */
-}
-
-.content {
-  margin-top: 20px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 }
 
 .card {
@@ -118,17 +108,28 @@
   font-weight: bold;
 }
 
-.date-picker {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
 .form-group input[type="text"],
 .form-group input[type="file"],
 .dropdown {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #e5e0da;
+}
+
+.photo-upload {
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-upload label {
+  margin-bottom: 5px;
+}
+
+.photo-upload input[type="file"] {
+  margin-bottom: 5px;
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -137,29 +138,8 @@
   background-color: #e5e0da;
 }
 
-.add-candidate-button {
-  background-color: #627ab8;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 20px;
-  align-items: center;
-}
-
-.create-button {
-  background-color: #627ab8;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
+.add-candidate-button,
+.create-button,
 .view-candidates-button {
   background-color: #627ab8;
   color: #fff;
@@ -171,6 +151,8 @@
   margin-top: 20px;
 }
 
+.add-candidate-button:hover,
+.create-button:hover,
 .view-candidates-button:hover {
   background-color: #486ca3;
 }
@@ -181,4 +163,9 @@
 
 .view-candidates-button:focus {
   outline: none;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
 }

@@ -192,7 +192,7 @@ const LoginPage = () => {
       },
       {
         id: 16,
-        name: "Chozhan",name: "Sarah",
+        name: "Sarah",
         regno: "311113104028",
         dob: "20-09-1999",
         batch: "2013-2017",
@@ -346,8 +346,8 @@ const LoginPage = () => {
           position: "Treasurer",
           photo : kohliImage,
           votecnt: 0,
-          voted: false,
-          }
+          voted: false
+          },
       // Rest of the nominees...
     ];
   
@@ -403,16 +403,12 @@ const LoginPage = () => {
         try{
               
               await login(input);
-              if (currentUser?.data?.votecnt === 14)
-             {
-              alert("Voted Already !! \n If not Contact ADMIN !!");
-              await logout();
-             }
-             else{
+              history('/');
+              //console.log(currentUser?.data?.votecnt);
               await fetchcandi(jsonDocuments);
-              alert('Logged In !!');
+             // alert('Logged In !!');
               history('/vote');
-             }
+            
             
               
           }

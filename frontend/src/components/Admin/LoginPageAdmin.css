@@ -13,14 +13,6 @@
   margin-bottom: 20px;
 }
 
-.election-title-name1 {
-  font-size: 30px;
-  color: #ed8620;
-  margin-bottom: 20px;
-}
-
-
-
 .logo {
   width: 200px;
   margin-bottom: 10px;
@@ -56,7 +48,7 @@ input[type="password"] {
   font-size: 18px;
   background-color: #e6e0da;
   color: black;
-  text-align: center;
+  //text-align: center;
   width: 100%;
   box-sizing: border-box;
 }
