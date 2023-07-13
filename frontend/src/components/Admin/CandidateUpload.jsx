@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import LICETLogo from "../licet-logo.png";
 import "./CandidateUpload.css";
 
 const CandidateUpload = () => {
+  const navigate = useNavigate();
   const [nomineeName, setNomineeName] = useState("");
   const [nomineeDOB, setNomineeDOB] = useState(null);
   const [nomineeBatch, setNomineeBatch] = useState("");
@@ -34,6 +35,10 @@ const CandidateUpload = () => {
 
   const handleOptPositionChange = (event) => {
     setOptPosition(event.target.value);
+  };
+
+  const handleLogout = () => {
+    navigate("/admin-login");
   };
 
   const handleCandidateCreate = () => {
@@ -83,7 +88,7 @@ const CandidateUpload = () => {
   };
 
   const formatBatch = (batch) => {
-    const batchRegex = /^20(1[0-4]|9[0-3])-20(1[0-4]|9[0-3])$/;
+    const batchRegex = /^(201[0-4]|2019|202[0-3])-20(1[0-4]|2019|202[0-3])$/;
     if (batch.match(batchRegex)) {
       return batch;
     }
@@ -108,15 +113,14 @@ const CandidateUpload = () => {
                 <Link to="/admin/candidate-upload" className="menu-link">
                   Candidates&nbsp;&nbsp;&nbsp;
                 </Link>
-                <Link to="/admin/change-election-phase" className="menu-link">
-                  Elections&nbsp;&nbsp;&nbsp;
-                </Link>
                 <Link to="/admin/results" className="menu-link">
                   Results&nbsp;&nbsp;&nbsp;
                 </Link>
               </ul>
             </nav>
-            <button className="logout-button">Logout</button>
+            <button className="logout-button" onClick={handleLogout}>
+              Logout
+            </button>
           </div>
         </header>
         <div className="content">
@@ -147,11 +151,23 @@ const CandidateUpload = () => {
                 <div className="form-row">
                   <div className="form-group">
                     <label>Nominee Class Batch:</label>
-                    <input
-                      type="text"
+                    <select
                       value={nomineeBatch}
                       onChange={handleNomineeBatchChange}
-                    />
+                      className="dropdown"
+                    >
+                      <option value="">Select Batch</option>
+                      <option value="2010-2014">2010-2014</option>
+                      <option value="2011-2015">2011-2015</option>
+                      <option value="2012-2016">2012-2016</option>
+                      <option value="2013-2017">2013-2017</option>
+                      <option value="2014-2018">2014-2018</option>
+                      <option value="2015-2019">2015-2019</option>
+                      <option value="2016-2020">2016-2020</option>
+                      <option value="2017-2021">2017-2021</option>
+                      <option value="2018-2022">2018-2022</option>
+                      <option value="2019-2023">2019-2023</option>
+                    </select>
                   </div>
                   <div className="form-group">
                     <label>Nominee Position:</label>
@@ -167,6 +183,17 @@ const CandidateUpload = () => {
                       <option value="treasurer">Treasurer</option>
                       <option value="executives">Executives</option>
                     </select>
+                  </div>
+                </div>
+                <div className="form-row">
+                  <div className="form-group photo-upload">
+                    <label>Nominee Photo:</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleNomineePhotoChange}
+                    />
+                    {nomineePhoto && <span>{nomineePhoto.name}</span>}
                   </div>
                 </div>
               </form>
