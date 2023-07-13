@@ -17,7 +17,22 @@ const AdminHome = () => {
     executives: false,
   });
 
-console.log(currentUsers);
+  const presidentArray = currentUsers.data.President;
+ // const vpresidentArray = currentUsers.data.Vice President;
+  const treasurerArray = currentUsers.data.Treasurer;
+  const execrArray = currentUsers.data.Executive;
+
+
+  const presidentLength = presidentArray.length;
+  //const vpresidentLength = vpresidentArray.length;
+  const tLength = treasurerArray.length;
+  const exeLength = execrArray.length;
+
+  
+  console.log("President Array Length:", presidentLength); 
+  console.log("President Array Length:", tLength);
+  console.log("President Array Length:", exeLength);
+  
 
   const handleToggle = (election) => {
     setElectionStatus((prevStatus) => ({
