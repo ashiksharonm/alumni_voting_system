@@ -154,7 +154,7 @@ const Vote = () => {
           <img src={LICETLogo} alt="LICET Logo" className="logo" />
         </div>
         <div className="header-center">
-          <h2 className="election-title" style={{"font-size": "35px"}}>LICET ALUMNI COUNCIL ELECTION</h2>
+          <h2 className="election-title" style={{"font-size": "35px"}}>LICET ALUMNI ASSOCIATION ELECTION</h2>
         </div>
         <div className="header-right">
           <button className="logout-button" onClick={handleLogout}>
@@ -183,7 +183,7 @@ const Vote = () => {
               {!nominee.voted ? (
                 <button
                   onClick={() => handleVote(nominee.id, "President")}
-                  disabled={!!selectedNominees["President"] ||  isVoting || !(initialVotedStatus[nominee.id]) } // Disable button while voting
+                  disabled={!!selectedNominees["President"] ||  isVoting  } // Disable button while voting
                 > 
                   {isVoting ? "Voting..." : "Vote"}
                 </button>
@@ -215,7 +215,7 @@ const Vote = () => {
               {!nominee.voted ? (
                 <button
                   onClick={() => handleVote(nominee.id, "Vice President")}
-                  disabled={!!selectedNominees["Vice President"] || isVoting || !(initialVotedStatus[nominee.id])} // Disable button while voting
+                  disabled={!!selectedNominees["Vice President"] || isVoting } // Disable button while voting
                 >
                   {isVoting ? "Voting..." : "Vote"}
                 </button>

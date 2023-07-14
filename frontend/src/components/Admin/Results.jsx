@@ -119,7 +119,7 @@ const Results = () => {
             </Link>
           </div>
           <div className="header-center">
-            <h1 className="election-title" style={{"font-size": "35px", "margin-right": "-292px"}}>LICET ALUMNI COUNCIL ELECTION</h1>
+            <h1 className="election-title" style={{"font-size": "35px", "margin-right": "-292px"}}>LICET ALUMNI ASSOCIATION ELECTION</h1>
           </div>
           <div className="header-right">
             <nav className="nav-menu">

@@ -50,7 +50,7 @@ const LoginPageAdmin = () => {
   return (
     <div className="container">
       <img src={LICETLogo} alt="LICET Logo" className="logo" />
-      <h1 className="election-title-name" style={{"font-size": "35px"}}>LICET ALUMNI COUNCIL ELECTION</h1>
+      <h1 className="election-title-name" style={{"font-size": "35px"}}>LICET ALUMNI ASSOCIATION ELECTION</h1>
       <br />
       <div className="login-card">
         <form onSubmit={validateForm}>
