@@ -4,9 +4,10 @@
   background-attachment: fixed;
 }
 
+
 .election-title {
   text-align: center;
-  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .election-section {
@@ -18,7 +19,8 @@
   flex-wrap: wrap;
   justify-content: center;
 }
-.voted  {
+
+.voted {
   color: #ffffff;
   padding: 6px;
   background-color: #006c12;
@@ -39,13 +41,14 @@
   text-align: center;
   opacity: 1;
   transform: translateY(20px);
-  box-shadow: 0px 0px 10px rgb(0,0,255,0.1) ;
+  box-shadow: 0px 0px 50px rgb(0, 0, 255, 0.1);
   transition: opacity 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .nominee-card:hover {
-  box-shadow: 0px 0px 10px rgb(0,0,255,0.3) ;
+  box-shadow: 0px 0px 50px rgb(0, 0, 255, 0.3);
 }
+
 
 .nominee-card.visible {
   opacity: 1;
@@ -53,7 +56,7 @@
 }
 
 .nominee-image {
-  width:50%;
+  width: 50%;
   height: 50%;
   overflow: hidden;
   display: flex;
@@ -87,11 +90,18 @@ button {
   border-radius: 5px;
   padding: 5px 10px;
   font-size: 14px;
-  cursor: pointer;
 }
 
 button:hover {
-  background-color: #1976d2;
+  background-color: rgb(52, 136, 238);
+  color: #fff;
+}
+
+
+button:disabled {
+  background-color: #fff;
+  color: #777;
+  cursor: not-allowed;
 }
 
 p {
@@ -128,8 +138,9 @@ h2 {
 
 .header-center {
   flex-grow: 1;
-  margin-left: -60px;
+  margin-left: -300px;
   text-align: center;
+  font-size: 30px;
 }
 
 .header-right {
@@ -150,6 +161,5 @@ h2 {
 
 .logout-button:hover {
   background-color: #f3f3f3;
+  color: #627ab8;
 }
-
-

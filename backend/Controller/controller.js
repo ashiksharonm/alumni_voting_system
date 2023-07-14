@@ -131,7 +131,7 @@ const register = async (req, res) => {
 
     let getUsers = await userproModel.find();
 
-    const positions = ["President", "Vice President", "Treasurer", "Joint Secretary", "Executive"];
+    const positions = ["President", "VicePresident", "Treasurer", "JointSecretary", "Executive"];
 
     const groupedNominees = {};
     
@@ -151,47 +151,40 @@ const register = async (req, res) => {
     }
 };
 
+//==================> Fetch Candidates Bio <=======================
 
-
-
-//==================> Edit user profile <=======================
-
-
-const setusrvtcnt = async (req, res) => {
+const fetchCandidates= async function ( req,res) {
   try {
-    let Body = req.body;
-    const { regno } = Body;
-    
-    console.log(regno);
+  
+    // let data = req.body
+    // let {id , name, regno, dob, batch , position , votecnt } = data
 
-    let getUser = await userModel.findOne({ regno : regno});
+    let getUsers = await userproModel.find();
+
+    // const positions = ["President", "VicePresident", "Treasurer", "JointSecretary", "Executive"];
+
+    // const groupedNominees = {};
     
-    if (!getUser) {
-      return res.status(404).json({ error: 'User not found' });
+    // for (const position of positions) {
+    //   groupedNominees[position] = getUsers.filter(nominee => nominee.position === position);
+    // }
+    // console.log(groupedNominees);
+
+    // const jsonDocuments = (groupedNominees);
+
+    // console.log(jsonDocuments);
+    if (getUsers)
+      return res.status(201).send({ data: getUsers});;
+
+    } catch (error) {
+      return res.status(500).json(error.message);
     }
-    
+};
 
-    let uservtc = getUser.votecnt;
-   uservtc = uservtc + 1;
 
-    const findOneQuery = { regno : regno };
-    const updateOptions = { returnOriginal: false };
-    const updateDoc = { $set: { votecnt : uservtc } };
-    const updateResult = await userModel.findOneAndUpdate(
-      findOneQuery,
-      updateDoc,
-      updateOptions
-    );
 
-    getUser = await userModel.findOne({ regno : regno });
-    console.log("UserVoteCount");
-    console.log(getUser);
 
-    res.status(201).send({ data: getUser });
-  } catch (error) {
-    return res.status(500).json(error.message);
-  }
-}; 
+//==================> Fetch user , candidates Bio <=======================
 
 const setusrcandivtcnt = async (req, res) => {
   try {
@@ -247,6 +240,56 @@ const setusrcandivtcnt = async (req, res) => {
 };
 
 
+//==================> Logout user <=======================
+const logout = (req, res) => {
+  res.status(200).json( "User has been logged out. ")
+};
+
+
+// =========================== UNUSED =====================================================
+// =========================== UNUSED =====================================================
+// =========================== UNUSED =====================================================
+
+
+
+//==================> Incremet user profile <=======================
+
+
+const setusrvtcnt = async (req, res) => {
+  try {
+    let Body = req.body;
+    const { regno } = Body;
+    
+    console.log(regno);
+
+    let getUser = await userModel.findOne({ regno : regno});
+    
+    if (!getUser) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+
+    let uservtc = getUser.votecnt;
+   uservtc = uservtc + 1;
+
+    const findOneQuery = { regno : regno };
+    const updateOptions = { returnOriginal: false };
+    const updateDoc = { $set: { votecnt : uservtc } };
+    const updateResult = await userModel.findOneAndUpdate(
+      findOneQuery,
+      updateDoc,
+      updateOptions
+    );
+
+    getUser = await userModel.findOne({ regno : regno });
+    console.log("UserVoteCount");
+    console.log(getUser);
+
+    res.status(201).send({ data: getUser });
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+}; 
 
 
 //==================> Fetch user Bio <=======================
@@ -281,10 +324,6 @@ catch (error) {
     }
 };
 
-//==================> Logout user <=======================
-const logout = (req, res) => {
-    res.status(200).json( "User has been logged out. ")
-};
- 
-module.exports = {loginUser, logout ,updatecandiVote ,setusrvtcnt,fetchCandi,setusrcandivtcnt};
+
+module.exports = {loginUser, logout ,updatecandiVote ,setusrvtcnt,fetchCandi,setusrcandivtcnt,fetchCandidates};
 

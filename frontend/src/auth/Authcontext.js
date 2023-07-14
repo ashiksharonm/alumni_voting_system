@@ -18,11 +18,11 @@ export const AuthContexProvider = ({ children }) => {
   };
 
 
-  // const adminlogin= async (inputs) => {
-  //   const res = await axios.post("http://localhost:5000/api/admin-login", inputs);
-  //   const userData = res.data;
-  //   setCurrentUsers(userData);
-  // };
+  const viewCandidates= async () => {
+    const res = await axios.post("http://localhost:5000/api/admin/candidate-upload");
+    const userupData = res.data;
+    setCandidates(userupData);
+  };
 
 
   const adminhome = async () => {
@@ -53,6 +53,7 @@ export const AuthContexProvider = ({ children }) => {
 
 
   const fetchcandi = async (candis) => {
+    
     setCandidates(candis);
   };
 
@@ -72,7 +73,7 @@ export const AuthContexProvider = ({ children }) => {
   }, [currentUser,currentUsers,currentCandidates]);
 
   return (
-    <AuthContext.Provider value={{ currentUser,currentUsers,currentCandidates,login, logout ,getCandidatesvtcnt,setusercandivote,setUservtcnt,fetchcandi,adminhome}}>
+    <AuthContext.Provider value={{ currentUser,currentUsers,currentCandidates,login, logout ,getCandidatesvtcnt,setusercandivote,setUservtcnt,fetchcandi,adminhome,viewCandidates}}>
       {children}
     </AuthContext.Provider>
   );

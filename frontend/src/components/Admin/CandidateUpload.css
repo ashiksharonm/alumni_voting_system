@@ -151,6 +151,18 @@
   margin-top: 20px;
 }
 
+.export-candidates-button {
+  background-color: #627ab8;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+
+}
+
 .add-candidate-button:hover,
 .create-button:hover,
 .view-candidates-button:hover {

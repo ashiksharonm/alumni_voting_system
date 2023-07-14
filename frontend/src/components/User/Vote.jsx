@@ -1,91 +1,116 @@
-import React, { useContext,useState,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./Vote.css";
 import LICETLogo from "../licet-logo.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/Authcontext";
 
-const Vote = () => {
+const VOTED_STATUS_KEY = "votedStatus";
 
-  const { getCandidatesvtcnt, logout, currentUser, currentUsers,currentCandidates,setCandidates,setusercandivote, setUservtcnt ,fetchcandi} = useContext(AuthContext);
+const Vote = () => {
+  const {
+    getCandidatesvtcnt,
+    logout,
+    currentUser,
+    currentUsers,
+    currentCandidates,
+    setCandidates,
+    setusercandivote,
+    setUservtcnt,
+    fetchcandi,
+  } = useContext(AuthContext);
 
   const [nominees, setNominees] = useState(currentCandidates);
   const history = useNavigate();
   const [selectedNominees, setSelectedNominees] = useState({});
   const [hasVoted, setHasVoted] = useState(false);
-  let ucount = 0;
+  const [isVoting, setIsVoting] = useState(false); // Track voting status
 
+  const [initialVotedStatus, setInitialVotedStatus] = useState({});
 
-  const reno= currentUser?.data?.regno;
-   
-  const [bio] = useState({
-    id : 0 ,
-    regno: ""
-  });
+  // useEffect(() => {
+  //   const initialVotedStatusData = JSON.parse(localStorage.getItem(VOTED_STATUS_KEY)) || {};
+  //   setInitialVotedStatus(initialVotedStatusData);
+  // }, []);
  
-  const logcheck = async () => {
-  if (currentUser?.data?.votecnt === 14)
-  {
-   alert("Voted Already !! \n If not Contact ADMIN !!");
-   await logout();
-   history('/');
-  }
-};
-  logcheck();
-  // const input  = currentUser?.data?.regno;
-  //const userid =  currentUser?.data?._id;
- //console.log(bio);
-    /* const candsubmit = async (uvc) => {
-      try{
-          
-           //await setUservtcnt(uvc); 
-           await getCandidatesvtcnt(uvc); 
-           //await logout();
-          // if( userid != null ) { setCandidates(null); }
-          // history('/');
-        }
-    catch(err)
-    {
-              alert("Retry")
-              console.log(err);
-          }
+  
+  // Merge the initial voted status with the nominees data
+  const initialNominees = {
+    "President": nominees["President"].map(nominee => ({
+      ...nominee,
+      voted: initialVotedStatus[nominee.id] || false
     
-      };
+    })),
+    "Vice President": nominees["Vice President"].map(nominee => ({
+      ...nominee,
+      voted: initialVotedStatus[nominee.id] || false
+    })),
+    "Treasurer": nominees["Treasurer"].map(nominee => ({
+      ...nominee,
+      voted: initialVotedStatus[nominee.id] || false
+    })),
+    "Joint Secretary": nominees["Joint Secretary"].map(nominee => ({
+      ...nominee,
+      voted: initialVotedStatus[nominee.id] || false
+    })),
+    "Executive": nominees["Executive"].map(nominee => ({
+      ...nominee,
+      voted: initialVotedStatus[nominee.id] || false
+    })),
+  };
 
-      const usrsubmit = async (inpu) => {
-        try{
-            
-             await setUservtcnt(inpu); 
-             //await getCandidatesvtcnt(uvc); 
-             //await logout();
-            // if( userid != null ) { setCandidates(null); }
-            // history('/');
+
+
+
+  const reno = currentUser?.data?.regno;
+
+  const [bio] = useState({
+    id: 0,
+    regno: "",
+  });
+
+  const logcheck = async () => {
+    if (currentUser?.data?.votecnt === 5) {
+      alert("Voted Already !! \n If not Contact ADMIN !!");
+      await logout();
+      history("/");
+    }
+  };
+  logcheck();
+
+  const vsubmit = async (input) => {
+    try {
+      setIsVoting(true); // Start voting
+      await setusercandivote(input);
+      const updatedNominees = { ...nominees };
+      for (const position in updatedNominees) {
+        updatedNominees[position] = updatedNominees[position].map((nominee) => {
+          if (nominee.id === input.id) {
+            return { ...nominee, voted: true };
           }
-      catch(err)
-      {
-                alert("Retry User")
-                console.log(err);
-            }
-      
-        }; */
-        const vsubmit = async (input) => {
-          try{
-              
-               await setusercandivote(input); 
-               //await getCandidatesvtcnt(uvc); 
-               //await logout();
-              // if( userid != null ) { setCandidates(null); }
-              // history('/');
-            }
-        catch(err)
-        {
-                  alert("Retry User")
-                  console.log(err);
-              }
-        
-          };
+          return nominee;
+        });
+      }
+      setNominees(updatedNominees);
 
+      // Check if user has voted for all elections
+      const allVoted = Object.keys(updatedNominees).every((position) =>
+        updatedNominees[position].every((nominee) => nominee.voted)
+      );
+      setHasVoted(allVoted);
 
-  const handleVote = (id, position) => {
+      const updatedVotedStatus = { ...initialVotedStatus };
+      updatedVotedStatus[input.id] = true;
+      localStorage.setItem(VOTED_STATUS_KEY, JSON.stringify(updatedVotedStatus));
+
+    } catch (err) {
+      alert("Retry User");
+      console.log(err);
+    } finally {
+      setIsVoting(false); // Voting completed
+    }
+  };
+
+  const handleVote = async (id, position) => {
     if (
       window.confirm(
         `Are you sure you want to vote for ${
@@ -93,60 +118,35 @@ const Vote = () => {
         } as ${position}?`
       )
     ) {
-      console.log(id);
       setSelectedNominees((prevSelectedNominees) => ({
         ...prevSelectedNominees,
-        [position]: [...(prevSelectedNominees[position] || []), id],
+        [position]: id,
       }));
-
-      const updatedNominees = {
-        ...nominees,
-        [position]: nominees[position].map((nominee) => {
-          if (nominee.id === id) {
-            return { ...nominee, voted: true };
-          }
-          return nominee;
-        }),
-      };
-      setNominees(updatedNominees);
-
-
-      // Check if user has voted for all elections
-      const allVoted = nominees[position].every(
-        (nominee) => nominee.voted
-      );
-      setHasVoted(allVoted);
 
       bio.id = id;
       bio.regno = reno;
-      vsubmit(bio);
+      const updatedVotedStatus = { ...initialVotedStatus };
+      
+      if( updatedVotedStatus[id] != true)
+       await vsubmit(bio);
+      else
+       alert(`You Already Voted for the ${position}`);
+  
     }
-   
-    // console.log(bio);
-   // const input = {_id};   
-   
-  //  usrsubmit(bio);
-  //  candsubmit(uvc);
-
   };
 
-  
-    async function handleLogout () {
-    if (currentUser?.data?.votecnt === 14) {
-      // Implement your logout logic here
-      // For example, redirect the user to the logout page or clear the session/local storage
-      // and then navigate them to the login page.
-    
+  async function handleLogout() {
+    if (currentUser?.data?.votecnt === 5) {
       await logout();
-
-      //alert('"User has been logged out !!')
-      history('/');
+      history("/");
       console.log("Logout");
     } else {
-      // Display a message to the user indicating they cannot log out until they have voted for all elections
       alert("You must vote for all elections before logging out.");
     }
-  };
+  }
+
+
+
   return (
     <div className="vote-container">
       <div className="header">
@@ -154,7 +154,7 @@ const Vote = () => {
           <img src={LICETLogo} alt="LICET Logo" className="logo" />
         </div>
         <div className="header-center">
-          <h1 className="election-title">LICET ALUMNI COUNCIL ELECTION</h1>
+          <h2 className="election-title" style={{"font-size": "35px"}}>LICET ALUMNI COUNCIL ELECTION</h2>
         </div>
         <div className="header-right">
           <button className="logout-button" onClick={handleLogout}>
@@ -163,35 +163,35 @@ const Vote = () => {
         </div>
       </div>
 
-     {/* President Section */}
+      {/* President Section */}
       <div className="election-section">
         <h2>President</h2>
         <div className="nominee-list">
-         {  nominees["President"].map((nominee) => (
-              <div
-                className={`nominee-card ${nominee.voted ? "visible" : ""}`}
-                key={nominee.id}
-              >
-                <div className="nominee-image">
-                  <img src={nominee.photo} alt={nominee.name} />
-                </div>
-                <div className="nominee-details">
-                  <h3>{nominee.name}</h3>
-                  <p>{nominee.batch}</p>
-                  <br />
-                </div>
-                {!nominee.voted ? (
-                  <button
-                    onClick={() => handleVote(nominee.id,"President")}
-                    disabled={!!selectedNominees["President"]}
-                  >
-                    Vote
-                  </button>
-                ) : (
-                  <p className="voted">Voted</p>
-                )}
+          {initialNominees["President"].map((nominee) => (
+            <div
+              className={`nominee-card ${nominee.voted ? "visible" : ""}`}
+              key={nominee.id}
+            >
+              <div className="nominee-image">
+                <img src={nominee.photo} alt={nominee.name} />
               </div>
-            ))}
+              <div className="nominee-details">
+                <h3>{nominee.name}</h3>
+                <p>{nominee.batch}</p>
+                <br />
+              </div>
+              {!nominee.voted ? (
+                <button
+                  onClick={() => handleVote(nominee.id, "President")}
+                  disabled={!!selectedNominees["President"] ||  isVoting || !(initialVotedStatus[nominee.id]) } // Disable button while voting
+                > 
+                  {isVoting ? "Voting..." : "Vote"}
+                </button>
+              ) : (
+                <p className="voted">Voted</p>
+              )}
+            </div>
+          ))}
         </div>
       </div>
 
@@ -199,98 +199,95 @@ const Vote = () => {
       <div className="election-section">
         <h2>Vice President</h2>
         <div className="nominee-list">
-        {nominees['Vice President']
-            .map((nominee) => (
-              <div
-                className={`nominee-card ${nominee.voted ? "visible" : ""}`}
-                key={nominee.id}
-              >
-                <div className="nominee-image">
-                  <img src={nominee.photo} alt={nominee.name} />
-                </div>
-                <div className="nominee-details">
-                  <h3>{nominee.name}</h3>
-                  <p>{nominee.batch}</p>
-                  <br />
-                </div>
-                {!nominee.voted ? (
-                  <button
-                    onClick={() => handleVote(nominee.id, 'Vice President')}
-                    disabled={!!selectedNominees['Vice President']}
-                  >
-                    Vote
-                  </button>
-                ) : (
-                  <p>Voted</p>
-                )}
+          {initialNominees["Vice President"].map((nominee) => (
+            <div
+              className={`nominee-card ${nominee.voted ? "visible" : ""}`}
+              key={nominee.id}
+            >
+              <div className="nominee-image">
+                <img src={nominee.photo} alt={nominee.name} />
               </div>
-            ))}
+              <div className="nominee-details">
+                <h3>{nominee.name}</h3>
+                <p>{nominee.batch}</p>
+                <br />
+              </div>
+              {!nominee.voted ? (
+                <button
+                  onClick={() => handleVote(nominee.id, "Vice President")}
+                  disabled={!!selectedNominees["Vice President"] || isVoting || !(initialVotedStatus[nominee.id])} // Disable button while voting
+                >
+                  {isVoting ? "Voting..." : "Vote"}
+                </button>
+              ) : (
+                <p className="voted">Voted</p>
+              )}
+            </div>
+          ))}
         </div>
       </div>
 
-       {/* Treasurer Section */}
+      {/* Treasurer Section */}
       <div className="election-section">
         <h2>Treasurer</h2>
         <div className="nominee-list">
-        {nominees['Treasurer']
-            .map((nominee) => (
-              <div
-                className={`nominee-card ${nominee.voted ? "visible" : ""}`}
-                key={nominee.id}
-              >
-                <div className="nominee-image">
-                  <img src={nominee.photo} alt={nominee.name} />
-                </div>
-                <div className="nominee-details">
-                  <h3>{nominee.name}</h3>
-                  <p>{nominee.batch}</p>
-                  <br />
-                </div>
-                {!nominee.voted ? (
-                  <button
-                    onClick={() => handleVote(nominee.id, 'Treasurer')}
-                    disabled={!!selectedNominees['Treasurer']}
-                  >
-                    Vote
-                  </button>
-                ) : (
-                  <p>Voted</p>
-                )}
+          {initialNominees["Treasurer"].map((nominee) => (
+            <div
+              className={`nominee-card ${nominee.voted ? "visible" : ""}`}
+              key={nominee.id}
+            >
+              <div className="nominee-image">
+                <img src={nominee.photo} alt={nominee.name} />
               </div>
-            ))}
+              <div className="nominee-details">
+                <h3>{nominee.name}</h3>
+                <p>{nominee.batch}</p>
+                <br />
+              </div>
+              {!nominee.voted ? (
+                <button
+                  onClick={() => handleVote(nominee.id, "Treasurer")}
+                  disabled={!!selectedNominees["Treasurer"] || isVoting || (initialVotedStatus[nominee.id])} // Disable button while voting
+                >
+                  {isVoting ? "Voting..." : "Vote"}
+                </button>
+              ) : (
+                <p className="voted">Voted</p>
+              )}
+            </div>
+          ))}
         </div>
       </div>
 
-       {/* Joint Secretary Section */}
+      {/* Joint Secretary Section */}
       <div className="election-section">
         <h2>Joint Secretary</h2>
         <div className="nominee-list">
-        {nominees['Joint Secretary']
-            .map((nominee) => (
-              <div
-                className={`nominee-card ${nominee.voted ? "visible" : ""}`}
-                key={nominee.id}
-              >
-                <div className="nominee-image">
-                  <img src={nominee.photo} alt={nominee.name} />
-                </div>
-                <div className="nominee-details">
-                  <h3>{nominee.name}</h3>
-                  <p>{nominee.batch}</p>
-                  <br />
-                </div>
-                {!nominee.voted ? (
-                  <button
-                    onClick={() => handleVote(nominee.id, 'Joint Secretary')}
-                    disabled={!!selectedNominees['Joint Secretary']}
-                  >
-                    Vote
-                  </button>
-                ) : (
-                  <p>Voted</p>
-                )}
+          {initialNominees["Joint Secretary"].map((nominee) => (
+            <div
+              className={`nominee-card ${nominee.voted ? "visible" : ""}`}
+              key={nominee.id}
+            >
+              <div className="nominee-image">
+                <img src={nominee.photo} alt={nominee.name} />
               </div>
-            ))}
+              <div className="nominee-details">
+                <h3>{nominee.name}</h3>
+                <p>{nominee.batch}</p>
+                <br />
+              </div>
+              {!nominee.voted ? (
+                <button
+                  onClick={() => handleVote(nominee.id, "Joint Secretary")}
+                  disabled={!!selectedNominees["Joint Secretary"] ||  isVoting || (initialVotedStatus[nominee.id])} // Disable button while voting
+                >
+                  {isVoting ? "Voting..." : "Vote"}
+                </button>
+              ) : (
+                <p className="voted">Voted</p>
+              )}
+            </div>
+          ))}
         </div>
       </div>
 
@@ -298,41 +295,36 @@ const Vote = () => {
       <div className="election-section">
         <h2>Executive</h2>
         <div className="nominee-list">
-        {nominees['Executive']
-            .map((nominee) => (
-              <div
-                className={`nominee-card ${nominee.voted ? "visible" : ""}`}
-                key={nominee.id}
-              >
-                <div className="nominee-image">
-                  <img src={nominee.photo} alt={nominee.name} />
-                </div>
-                <div className="nominee-details">
-                  <h3>{nominee.name}</h3>
-                  <p>{nominee.batch}</p>
-                  <br />
-                </div>
-                {!nominee.voted ? (
-                  <button
-                    onClick={() => handleVote(nominee.id, nominee.position)}
-                    disabled={
-                      (selectedNominees[nominee.position] || []).length >= 10
-                    }
-                  >
-                    Vote
-                  </button>
-                ) : (
-                  <p>Voted</p>
-                )}
+          {initialNominees["Executive"].map((nominee) => (
+            <div
+              className={`nominee-card ${nominee.voted ? "visible" : ""}`}
+              key={nominee.id}
+            >
+              <div className="nominee-image">
+                <img src={nominee.photo} alt={nominee.name} />
               </div>
-            ))}
+              <div className="nominee-details">
+                <h3>{nominee.name}</h3>
+                <p>{nominee.batch}</p>
+                <br />
+              </div>
+              {!nominee.voted ? (
+                <button
+                  onClick={() => handleVote(nominee.id, nominee.position)}
+                  disabled={selectedNominees[nominee.position] ||  isVoting || !initialVotedStatus[nominee.id]} // Disable button while voting
+                  // className={selectedNominees[nominee.position] ? "disabled" : ""}
+                >
+                  {isVoting ? "Voting..." : "Vote"}
+                </button>
+              ) : (
+                <p className="voted">Voted</p>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
-
 };
 
-
 export default Vote;
-

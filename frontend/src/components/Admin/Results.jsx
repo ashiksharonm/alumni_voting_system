@@ -1,70 +1,113 @@
-import React from "react";
+import React ,{ useState, useContext }from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CanvasJSReact from "@canvasjs/react-charts";
 import "react-datepicker/dist/react-datepicker.css";
 import LICETLogo from "../licet-logo.png";
 import "./CandidateUpload.css";
+import { AuthContext } from "../../auth/Authcontext";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
+
 
 const Results = () => {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+  const { currentUsers , logout} = useContext(AuthContext);
+
+  const presidentArray = currentUsers.data.President;
+ const vpresidentArray = currentUsers.data.VicePresident;
+  const treasurerArray = currentUsers.data.Treasurer;
+  const execrArray = currentUsers.data.Executive;
+  const JsArray = currentUsers.data.JointSecretary;
+
+  const [exportingPDF, setExportingPDF] = useState(false);
+
+  function getRandomColor() {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 
   const electionResults = [
     {
       title: "President",
-      data: [
-        { label: "Candidate A", y: 10, color: "#FF5733" },
-        { label: "Candidate B", y: 15, color: "#C70039" },
-        { label: "Candidate C", y: 25, color: "#FFC300" },
-        { label: "Candidate D", y: 30, color: "#3366CC" },
-        { label: "Candidate E", y: 28, color: "#99CC00" },
-      ],
+      data: presidentArray.map((candidate, index) => ({
+        label: `Candidate ${String.fromCharCode(65 + index)}`,
+        y: candidate.votecnt,
+        color: getRandomColor(),
+      })),
     },
     {
       title: "Vice President",
-      data: [
-        { label: "Candidate X", y: 20, color: "#FF5733" },
-        { label: "Candidate Y", y: 18, color: "#C70039" },
-        { label: "Candidate Z", y: 22, color: "#FFC300" },
-        { label: "Candidate W", y: 25, color: "#3366CC" },
-        { label: "Candidate V", y: 30, color: "#99CC00" },
-      ],
+      data: vpresidentArray.map((candidate, index) => ({
+        label: `Candidate ${String.fromCharCode(65 + index)}`,
+        y: candidate.votecnt,
+        color: getRandomColor(),
+      })),
     },
     {
-      title: "Secretary",
-      data: [
-        { label: "Candidate X", y: 20, color: "#FF5733" },
-        { label: "Candidate Y", y: 18, color: "#C70039" },
-        { label: "Candidate Z", y: 22, color: "#FFC300" },
-        { label: "Candidate W", y: 25, color: "#3366CC" },
-        { label: "Candidate V", y: 30, color: "#99CC00" },
-      ],
+      title: "Joint Secretary",
+      data: JsArray.map((candidate, index) => ({
+        label: `Candidate ${String.fromCharCode(65 + index)}`,
+        y: candidate.votecnt,
+        color: getRandomColor(),
+      })),
     },
     {
       title: "Treasurer",
-      data: [
-        { label: "Candidate X", y: 20, color: "#FF5733" },
-        { label: "Candidate Y", y: 18, color: "#C70039" },
-        { label: "Candidate Z", y: 22, color: "#FFC300" },
-        { label: "Candidate W", y: 25, color: "#3366CC" },
-        { label: "Candidate V", y: 30, color: "#99CC00" },
-      ],
+      data: treasurerArray.map((candidate, index) => ({
+        label: `Candidate ${String.fromCharCode(65 + index)}`,
+        y: candidate.votecnt,
+        color: getRandomColor(),
+      })),
     },
     {
       title: "Executives",
-      data: [
-        { label: "Candidate X", y: 20, color: "#FF5733" },
-        { label: "Candidate Y", y: 18, color: "#C70039" },
-        { label: "Candidate Z", y: 22, color: "#FFC300" },
-        { label: "Candidate W", y: 25, color: "#3366CC" },
-        { label: "Candidate V", y: 30, color: "#99CC00" },
-      ],
+      data: execrArray.map((candidate, index) => ({
+        label: `Candidate ${String.fromCharCode(65 + index)}`,
+        y: candidate.votecnt,
+        color: getRandomColor(),
+      })),
     },
   ];
 
-  const handleLogout = () => {
-    Navigate("/admin-login");
+  const handleLogout = async () => {
+    await logout();
+    navigate("/admin-login");
   };
+
+  
+  const handleExportPDF = () => {
+    setExportingPDF(true);
+  
+    const doc = new jsPDF();
+    const element = document.getElementById("charts-container");
+  
+    // Calculate the height and width of the PDF page
+    const width = doc.internal.pageSize.getWidth();
+    const height = doc.internal.pageSize.getHeight();
+  
+    // Create a canvas element to convert the HTML to an image
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext("2d");
+  
+    // Use html2canvas to capture the HTML element as an image
+    html2canvas(element).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      doc.addImage(imgData, "PNG", 0, 0, width, height);
+      doc.save("charts.pdf");
+  
+      setExportingPDF(false);
+    });
+  };
+  
+  
 
   return (
     <div className="admin-container">
@@ -76,11 +119,14 @@ const Results = () => {
             </Link>
           </div>
           <div className="header-center">
-            <h1 className="election-title">LICET ALUMNI COUNCIL ELECTION</h1>
+            <h1 className="election-title" style={{"font-size": "35px", "margin-right": "-292px"}}>LICET ALUMNI COUNCIL ELECTION</h1>
           </div>
           <div className="header-right">
             <nav className="nav-menu">
               <ul>
+                <Link to="/admin/" className="menu-link">
+                  Home&nbsp;&nbsp;&nbsp;
+                </Link>
                 <Link to="/admin/candidate-upload" className="menu-link">
                   Candidates&nbsp;&nbsp;&nbsp;
                 </Link>
@@ -113,6 +159,15 @@ const Results = () => {
             </div>
           ))}
         </div>
+        <br/><br/>
+        <center>
+        <button
+          className="export-button"
+          onClick={handleExportPDF}
+          disabled={exportingPDF}
+        >
+          Export to PDF
+        </button></center>
       </div>
     </div>
   );

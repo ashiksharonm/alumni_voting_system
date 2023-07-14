@@ -18,6 +18,7 @@ router.post("/api/user/logout", userController.logout);
 //=======================> User <====================
 
 router.post("/api/admin-login", userController.fetchCandi);
+router.post("/api/admin/candidate-upload", userController.fetchCandidates);
 
 module.exports = router;
   /*

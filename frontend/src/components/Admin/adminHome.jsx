@@ -7,7 +7,7 @@ import { AuthContext } from "../../auth/Authcontext";
 
 const AdminHome = () => {
   const Navigate = useNavigate();
-  const { currentUsers } = useContext(AuthContext);
+  const { currentUsers ,logout} = useContext(AuthContext);
 
   const [electionStatus, setElectionStatus] = useState({
     president: false,
@@ -18,20 +18,47 @@ const AdminHome = () => {
   });
 
   const presidentArray = currentUsers.data.President;
- // const vpresidentArray = currentUsers.data.Vice President;
+ const vpresidentArray = currentUsers.data.VicePresident;
   const treasurerArray = currentUsers.data.Treasurer;
   const execrArray = currentUsers.data.Executive;
+  const JsArray = currentUsers.data.JointSecretary;
 
 
   const presidentLength = presidentArray.length;
-  //const vpresidentLength = vpresidentArray.length;
+  const vpresidentLength = vpresidentArray.length;
   const tLength = treasurerArray.length;
   const exeLength = execrArray.length;
+  const JsLength = JsArray.length;
 
+  let president_Totalvotes = 0;
+  for (let index = 0; index < presidentLength; index++) {
+    president_Totalvotes = president_Totalvotes  + currentUsers.data.President[index].votecnt;
+  }
+
+  let Vicepresident_Totalvotes = 0;
+  for (let index = 0; index < vpresidentLength; index++) {
+    Vicepresident_Totalvotes = Vicepresident_Totalvotes  + currentUsers.data.VicePresident[index].votecnt;
+  }
+  let treasurer_Totalvotes = 0;
+  for (let index = 0; index < tLength; index++) {
+    treasurer_Totalvotes = treasurer_Totalvotes  + currentUsers.data.Treasurer[index].votecnt;
+  }
+  let exec_Totalvotes = 0;
+  for (let index = 0; index < exeLength; index++) {
+    exec_Totalvotes = exec_Totalvotes  + currentUsers.data.Executive[index].votecnt;
+  }
+  let JointSecretary_Totalvotes = 0;
+  for (let index = 0; index < JsLength; index++) {
+    JointSecretary_Totalvotes = JointSecretary_Totalvotes  + currentUsers.data.JointSecretary[index].votecnt;
+  }
   
-  console.log("President Array Length:", presidentLength); 
-  console.log("President Array Length:", tLength);
-  console.log("President Array Length:", exeLength);
+  
+  console.log(president_Totalvotes);
+  // console.log("President Array Length:", presidentLength); 
+  // console.log("Vice President Array Length:", vpresidentLength);
+  // console.log("Treasure President Array Length:", tLength);
+  // console.log("Executive Array Length:", exeLength);
+  // console.log("Jointsecreatary Array Length:", JsLength);
   
 
   const handleToggle = (election) => {
@@ -41,7 +68,8 @@ const AdminHome = () => {
     }));
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await logout();
     Navigate("/admin-login");
   };
 
@@ -56,7 +84,7 @@ const AdminHome = () => {
             </Link>
           </div>
           <div className="header-center">
-            <h1 className="election-title">LICET ALUMNI COUNCIL ELECTION</h1>
+            <h1 className="election-title" style={{"font-size": "35px", "margin-right": "-220px"}}>LICET ALUMNI COUNCIL ELECTION</h1>
           </div>
           <div className="header-right">
             <nav className="nav-menu">
@@ -79,40 +107,40 @@ const AdminHome = () => {
             <div className="election-status-card">
               <h2>President</h2>
               <br />
-              <p>Number of Candidates: 5</p>
-              <p>Total Votes: 100</p>
+              <p>Number of Candidates: {presidentLength}</p>
+              <p>Total Votes: {president_Totalvotes}</p>
               <br />
               {/* Display any other relevant information */}
             </div>
             <div className="election-status-card">
               <h2>Vice President</h2>
               <br />
-              <p>Number of Candidates: 3</p>
-              <p>Total Votes: 50</p>
+              <p>Number of Candidates: {vpresidentLength}</p>
+              <p>Total Votes: {Vicepresident_Totalvotes}</p>
               <br />
               {/* Display any other relevant information */}
             </div>
             <div className="election-status-card">
-              <h2>Secretary</h2>
+              <h2>Joint Secretary</h2>
               <br />
-              <p>Number of Candidates: 4</p>
-              <p>Total Votes: 75</p>
+              <p>Number of Candidates: {JsLength}</p>
+              <p>Total Votes: {JointSecretary_Totalvotes}</p>
               <br />
               {/* Display any other relevant information */}
             </div>
             <div className="election-status-card">
               <h2>Treasurer</h2>
               <br />
-              <p>Number of Candidates: 2</p>
-              <p>Total Votes: 30</p>
+              <p>Number of Candidates: {tLength}</p>
+              <p>Total Votes: {treasurer_Totalvotes}</p>
               <br />
               {/* Display any other relevant information */}
             </div>
             <div className="election-status-card">
               <h2>Executives</h2>
               <br />
-              <p>Number of Candidates: 6</p>
-              <p>Total Votes: 120</p>
+              <p>Number of Candidates: {exeLength}</p>
+              <p>Total Votes: {exec_Totalvotes}</p>
               <br />
               {/* Display any other relevant information */}
             </div>
