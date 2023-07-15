@@ -50,10 +50,14 @@ export const AuthContexProvider = ({ children }) => {
     setCurrentUser(userbio);
   };
 
-
+  // const fetchcandi = async () => {
+  //   const res = await axios.get("http://localhost:5000/api/user/login");
+  //   const userData = res.data;
+  //   setCandidates(userData);
+  // };
 
   const fetchcandi = async (candis) => {
-    
+
     setCandidates(candis);
   };
 

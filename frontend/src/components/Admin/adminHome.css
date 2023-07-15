@@ -39,7 +39,7 @@
 
 /* Header Styles */
 .header {
-  background-color: #627ab8;
+  background-color: #1e1445;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -53,12 +53,6 @@
   align-items: center;
 }
 
-.logo {
-  width: 160px;
-  height: 70px;
-  margin-right: 10px;
-}
-
 .header-center {
   flex-grow: 1;
   text-align: center;
@@ -67,6 +61,7 @@
 }
 
 .election-title {
+  
   text-align: center;
   font-size: 20px;
   font-weight: bold;
@@ -132,6 +127,7 @@
   /* Add your styles here */
   margin-bottom: 15px;
   font-size: 24px;
+ color: #2b2626;
 }
 
 .election-status-card p {

@@ -1,22 +1,21 @@
-import React ,{ useState, useContext }from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CanvasJSReact from "@canvasjs/react-charts";
 import "react-datepicker/dist/react-datepicker.css";
-import LICETLogo from "../licet-logo.png";
+import LICETLogo from "../alumni-logo.png";
 import "./CandidateUpload.css";
 import { AuthContext } from "../../auth/Authcontext";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 
-
 const Results = () => {
   const navigate = useNavigate();
   const CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
-  const { currentUsers , logout} = useContext(AuthContext);
+  const { currentUsers, logout } = useContext(AuthContext);
 
   const presidentArray = currentUsers.data.President;
- const vpresidentArray = currentUsers.data.VicePresident;
+  const vpresidentArray = currentUsers.data.VicePresident;
   const treasurerArray = currentUsers.data.Treasurer;
   const execrArray = currentUsers.data.Executive;
   const JsArray = currentUsers.data.JointSecretary;
@@ -36,7 +35,7 @@ const Results = () => {
     {
       title: "President",
       data: presidentArray.map((candidate, index) => ({
-        label: `Candidate ${String.fromCharCode(65 + index)}`,
+        label: candidate.name,
         y: candidate.votecnt,
         color: getRandomColor(),
       })),
@@ -44,7 +43,7 @@ const Results = () => {
     {
       title: "Vice President",
       data: vpresidentArray.map((candidate, index) => ({
-        label: `Candidate ${String.fromCharCode(65 + index)}`,
+        label: candidate.name,
         y: candidate.votecnt,
         color: getRandomColor(),
       })),
@@ -52,7 +51,7 @@ const Results = () => {
     {
       title: "Joint Secretary",
       data: JsArray.map((candidate, index) => ({
-        label: `Candidate ${String.fromCharCode(65 + index)}`,
+        label: candidate.name,
         y: candidate.votecnt,
         color: getRandomColor(),
       })),
@@ -60,7 +59,7 @@ const Results = () => {
     {
       title: "Treasurer",
       data: treasurerArray.map((candidate, index) => ({
-        label: `Candidate ${String.fromCharCode(65 + index)}`,
+        label: candidate.name,
         y: candidate.votecnt,
         color: getRandomColor(),
       })),
@@ -68,7 +67,7 @@ const Results = () => {
     {
       title: "Executives",
       data: execrArray.map((candidate, index) => ({
-        label: `Candidate ${String.fromCharCode(65 + index)}`,
+        label: candidate.name,
         y: candidate.votecnt,
         color: getRandomColor(),
       })),
@@ -76,38 +75,35 @@ const Results = () => {
   ];
 
   const handleLogout = async () => {
-    await logout();
     navigate("/admin-login");
+    await logout();
   };
 
-  
   const handleExportPDF = () => {
     setExportingPDF(true);
-  
+
     const doc = new jsPDF();
     const element = document.getElementById("charts-container");
-  
+
     // Calculate the height and width of the PDF page
     const width = doc.internal.pageSize.getWidth();
     const height = doc.internal.pageSize.getHeight();
-  
+
     // Create a canvas element to convert the HTML to an image
     const canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
     const context = canvas.getContext("2d");
-  
+
     // Use html2canvas to capture the HTML element as an image
     html2canvas(element).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       doc.addImage(imgData, "PNG", 0, 0, width, height);
       doc.save("charts.pdf");
-  
+
       setExportingPDF(false);
     });
   };
-  
-  
 
   return (
     <div className="admin-container">
@@ -115,11 +111,16 @@ const Results = () => {
         <header className="header">
           <div className="header-left">
             <Link to="/admin">
-              <img src={LICETLogo} alt="LICET Logo" className="logo" />
+              <img src={LICETLogo} alt="LICET Logo" className="logo" style={{"height" : "120px" ,  "width": "90px", "margin-left":"10px"}}/>
             </Link>
           </div>
           <div className="header-center">
-            <h1 className="election-title" style={{"font-size": "35px", "margin-right": "-292px"}}>LICET ALUMNI ASSOCIATION ELECTION</h1>
+            <h1
+              className="election-title"
+              style={{ fontSize: "35px", marginRight: "-292px" }}
+            >
+              LICET ALUMNI ASSOCIATION ELECTION
+            </h1>
           </div>
           <div className="header-right">
             <nav className="nav-menu">
@@ -140,7 +141,7 @@ const Results = () => {
             </button>
           </div>
         </header>
-        <div className="chart-container">
+        <div className="chart-container" id="charts-container">
           {electionResults.map((election) => (
             <div key={election.title} className="chart-item">
               {/* <h2>{election.title}</h2> */}
@@ -159,15 +160,17 @@ const Results = () => {
             </div>
           ))}
         </div>
-        <br/><br/>
+        <br />
+        <br />
         <center>
-        <button
-          className="export-button"
-          onClick={handleExportPDF}
-          disabled={exportingPDF}
-        >
-          Export to PDF
-        </button></center>
+          <button
+            className="export-button"
+            onClick={handleExportPDF}
+            disabled={exportingPDF}
+          >
+            Export to PDF
+          </button>
+        </center>
       </div>
     </div>
   );

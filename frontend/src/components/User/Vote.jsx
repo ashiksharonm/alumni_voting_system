@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import "./Vote.css";
-import LICETLogo from "../licet-logo.png";
+import LICETLogo from "../alumni-logo.png";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/Authcontext";
 
@@ -25,41 +25,32 @@ const Vote = () => {
   const [hasVoted, setHasVoted] = useState(false);
   const [isVoting, setIsVoting] = useState(false); // Track voting status
 
-  const [initialVotedStatus, setInitialVotedStatus] = useState({});
+  const initialVotedStatus =
+    JSON.parse(localStorage.getItem(VOTED_STATUS_KEY)) || {};
 
-  // useEffect(() => {
-  //   const initialVotedStatusData = JSON.parse(localStorage.getItem(VOTED_STATUS_KEY)) || {};
-  //   setInitialVotedStatus(initialVotedStatusData);
-  // }, []);
- 
-  
   // Merge the initial voted status with the nominees data
   const initialNominees = {
-    "President": nominees["President"].map(nominee => ({
+    President: nominees["President"].map((nominee) => ({
       ...nominee,
-      voted: initialVotedStatus[nominee.id] || false
-    
+      voted: initialVotedStatus[nominee.id] || false,
     })),
-    "Vice President": nominees["Vice President"].map(nominee => ({
+    "VicePresident": nominees["VicePresident"].map((nominee) => ({
       ...nominee,
-      voted: initialVotedStatus[nominee.id] || false
+      voted: initialVotedStatus[nominee.id] || false,
     })),
-    "Treasurer": nominees["Treasurer"].map(nominee => ({
+    Treasurer: nominees["Treasurer"].map((nominee) => ({
       ...nominee,
-      voted: initialVotedStatus[nominee.id] || false
+      voted: initialVotedStatus[nominee.id] || false,
     })),
-    "Joint Secretary": nominees["Joint Secretary"].map(nominee => ({
+    "JointSecretary": nominees["JointSecretary"].map((nominee) => ({
       ...nominee,
-      voted: initialVotedStatus[nominee.id] || false
+      voted: initialVotedStatus[nominee.id] || false,
     })),
-    "Executive": nominees["Executive"].map(nominee => ({
+    Executive: nominees["Executive"].map((nominee) => ({
       ...nominee,
-      voted: initialVotedStatus[nominee.id] || false
+      voted: initialVotedStatus[nominee.id] || false,
     })),
   };
-
-
-
 
   const reno = currentUser?.data?.regno;
 
@@ -68,14 +59,16 @@ const Vote = () => {
     regno: "",
   });
 
-  const logcheck = async () => {
+  const logcheck = () => {
     if (currentUser?.data?.votecnt === 5) {
-      alert("Voted Already !! \n If not Contact ADMIN !!");
-      await logout();
-      history("/");
+      alert("You have already voted for all the elections!");
+      history("/"); // Redirect to login page
     }
   };
-  logcheck();
+
+  useEffect(() => {
+    logcheck();
+  }, []);
 
   const vsubmit = async (input) => {
     try {
@@ -100,8 +93,10 @@ const Vote = () => {
 
       const updatedVotedStatus = { ...initialVotedStatus };
       updatedVotedStatus[input.id] = true;
-      localStorage.setItem(VOTED_STATUS_KEY, JSON.stringify(updatedVotedStatus));
-
+      localStorage.setItem(
+        VOTED_STATUS_KEY,
+        JSON.stringify(updatedVotedStatus)
+      );
     } catch (err) {
       alert("Retry User");
       console.log(err);
@@ -126,35 +121,47 @@ const Vote = () => {
       bio.id = id;
       bio.regno = reno;
       const updatedVotedStatus = { ...initialVotedStatus };
-      
-      if( updatedVotedStatus[id] != true)
-       await vsubmit(bio);
-      else
-       alert(`You Already Voted for the ${position}`);
-  
+
+      if (updatedVotedStatus[id] !== true) await vsubmit(bio);
+      else alert(`You Already Voted for the ${position}`);
     }
   };
 
-  async function handleLogout() {
+  const handleLogout = async () => {
     if (currentUser?.data?.votecnt === 5) {
-      await logout();
-      history("/");
-      console.log("Logout");
+      const confirmed = window.confirm(
+        "You have voted for all the elections! Please logout!!"
+      );
+      if (confirmed) {
+        await logout();
+        history("/"); // Redirect to login page
+      }
     } else {
       alert("You must vote for all elections before logging out.");
     }
-  }
+  };
 
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      return (event.returnValue = "Are you sure you want to leave?");
+    };
 
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   return (
     <div className="vote-container">
       <div className="header">
         <div className="header-left">
-          <img src={LICETLogo} alt="LICET Logo" className="logo" />
+          <img src={LICETLogo} alt="LICET Logo" style={{"height" : "150px" ,  "width": "100px", "margin-left":"10px"}} className="logo" />
         </div>
         <div className="header-center">
-          <h2 className="election-title" style={{"font-size": "35px"}}>LICET ALUMNI ASSOCIATION ELECTION</h2>
+          <h2 className="election-title" style={{"font-size": "35px", "margin-left":"40px"}}>LICET ALUMNI COUNCIL ELECTION</h2>
         </div>
         <div className="header-right">
           <button className="logout-button" onClick={handleLogout}>
@@ -162,7 +169,7 @@ const Vote = () => {
           </button>
         </div>
       </div>
-
+      <br />
       {/* President Section */}
       <div className="election-section">
         <h2>President</h2>
@@ -183,8 +190,8 @@ const Vote = () => {
               {!nominee.voted ? (
                 <button
                   onClick={() => handleVote(nominee.id, "President")}
-                  disabled={!!selectedNominees["President"] ||  isVoting  } // Disable button while voting
-                > 
+                  disabled={!!selectedNominees["President"] || isVoting} // Disable button while voting
+                >
                   {isVoting ? "Voting..." : "Vote"}
                 </button>
               ) : (
@@ -195,11 +202,14 @@ const Vote = () => {
         </div>
       </div>
 
-      {/* Vice President Section */}
+      <br />
+      <br />
+      <br />
+      {/* VicePresident Section */}
       <div className="election-section">
-        <h2>Vice President</h2>
+        <h2>VicePresident</h2>
         <div className="nominee-list">
-          {initialNominees["Vice President"].map((nominee) => (
+          {initialNominees["VicePresident"].map((nominee) => (
             <div
               className={`nominee-card ${nominee.voted ? "visible" : ""}`}
               key={nominee.id}
@@ -214,8 +224,8 @@ const Vote = () => {
               </div>
               {!nominee.voted ? (
                 <button
-                  onClick={() => handleVote(nominee.id, "Vice President")}
-                  disabled={!!selectedNominees["Vice President"] || isVoting } // Disable button while voting
+                  onClick={() => handleVote(nominee.id, "VicePresident")}
+                  disabled={!!selectedNominees["VicePresident"] || isVoting} // Disable button while voting
                 >
                   {isVoting ? "Voting..." : "Vote"}
                 </button>
@@ -226,7 +236,9 @@ const Vote = () => {
           ))}
         </div>
       </div>
-
+      <br />
+      <br />
+      <br />
       {/* Treasurer Section */}
       <div className="election-section">
         <h2>Treasurer</h2>
@@ -247,7 +259,7 @@ const Vote = () => {
               {!nominee.voted ? (
                 <button
                   onClick={() => handleVote(nominee.id, "Treasurer")}
-                  disabled={!!selectedNominees["Treasurer"] || isVoting || (initialVotedStatus[nominee.id])} // Disable button while voting
+                  disabled={!!selectedNominees["Treasurer"] || isVoting} // Disable button while voting
                 >
                   {isVoting ? "Voting..." : "Vote"}
                 </button>
@@ -258,12 +270,15 @@ const Vote = () => {
           ))}
         </div>
       </div>
+      <br />
+      <br />
+      <br />
 
-      {/* Joint Secretary Section */}
+      {/* JointSecretary Section */}
       <div className="election-section">
-        <h2>Joint Secretary</h2>
+        <h2>JointSecretary</h2>
         <div className="nominee-list">
-          {initialNominees["Joint Secretary"].map((nominee) => (
+          {initialNominees["JointSecretary"].map((nominee) => (
             <div
               className={`nominee-card ${nominee.voted ? "visible" : ""}`}
               key={nominee.id}
@@ -278,8 +293,8 @@ const Vote = () => {
               </div>
               {!nominee.voted ? (
                 <button
-                  onClick={() => handleVote(nominee.id, "Joint Secretary")}
-                  disabled={!!selectedNominees["Joint Secretary"] ||  isVoting || (initialVotedStatus[nominee.id])} // Disable button while voting
+                  onClick={() => handleVote(nominee.id, "JointSecretary")}
+                  disabled={!!selectedNominees["JointSecretary"] || isVoting} // Disable button while voting
                 >
                   {isVoting ? "Voting..." : "Vote"}
                 </button>
@@ -290,6 +305,9 @@ const Vote = () => {
           ))}
         </div>
       </div>
+      <br />
+      <br />
+      <br />
 
       {/* Executives Section */}
       <div className="election-section">
@@ -311,8 +329,10 @@ const Vote = () => {
               {!nominee.voted ? (
                 <button
                   onClick={() => handleVote(nominee.id, nominee.position)}
-                  disabled={selectedNominees[nominee.position] ||  isVoting || !initialVotedStatus[nominee.id]} // Disable button while voting
-                  // className={selectedNominees[nominee.position] ? "disabled" : ""}
+                  disabled={selectedNominees[nominee.position] || isVoting} // Disable button while voting
+                  className={
+                    selectedNominees[nominee.position] ? "disabled" : ""
+                  }
                 >
                   {isVoting ? "Voting..." : "Vote"}
                 </button>
@@ -322,8 +342,14 @@ const Vote = () => {
             </div>
           ))}
         </div>
+        <div className="header-right">
+          <button className="logout-button" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
       </div>
     </div>
+    
   );
 };
 

@@ -41,7 +41,7 @@ const loginUser = async function (req, res) {
     console.log(getUser);
     
     return res.status(200).send({ data: getUser });
-      
+    
     } catch (error) {
       return res.status(500).json(error.message);
     }
@@ -120,8 +120,33 @@ const register = async (req, res) => {
   }
 };
 
+//==================> Fetch Candidates Bio  - User <=======================
 
-//==================> Fetch user Bio <=======================
+const fetchLCandidate= async function ( req,res) {
+  try {
+  
+    // let data = req.body
+    // let {id , name, regno, dob, batch , position , votecnt } = data
+
+    let getUsers = await userproModel.find();
+    
+
+    const positions = [...new Set(getUsers.map(nominee => nominee.position))];
+    const nomineesByPosition = {};
+    positions.forEach(position => {
+    nomineesByPosition[position] = getUsers.filter(nominee => nominee.position === position);
+    });  
+    const jsonDocuments = (nomineesByPosition);
+    if (getUsers)
+      return res.status(201).send({ data: jsonDocuments});;
+
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+};
+
+
+//==================> Fetch user Bio - ADMIN <=======================
 
  const fetchCandi= async function ( req,res) {
   try {
@@ -151,7 +176,9 @@ const register = async (req, res) => {
     }
 };
 
-//==================> Fetch Candidates Bio <=======================
+
+
+//==================> Fetch Candidates Bio  - ADMIN <=======================
 
 const fetchCandidates= async function ( req,res) {
   try {
@@ -325,5 +352,5 @@ catch (error) {
 };
 
 
-module.exports = {loginUser, logout ,updatecandiVote ,setusrvtcnt,fetchCandi,setusrcandivtcnt,fetchCandidates};
+module.exports = {loginUser, logout ,updatecandiVote ,setusrvtcnt,fetchCandi,setusrcandivtcnt,fetchCandidates,fetchLCandidate};
 

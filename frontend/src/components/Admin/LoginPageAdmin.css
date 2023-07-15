@@ -21,7 +21,7 @@
 .login-card {
   align-items: center;
   padding: 40px;
-  background-color: #c7a9a9;
+  background-color: #fff;
   border-radius: 5px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
   width: 400px;
@@ -31,7 +31,7 @@ label {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #000000;
+  color: #1e1445;
   font-weight: bold;
   margin-bottom: 15px;
   text-align: center;
@@ -48,27 +48,29 @@ input[type="password"] {
   font-size: 18px;
   background-color: #e6e0da;
   color: black;
-  //text-align: center;
+  text-align: center;
   width: 100%;
   box-sizing: border-box;
 }
 
-input[type="submit"] {
-  padding: 15px 30px;
-  border-radius: 5px;
-  border: none;
-  background-color: #007bff;
-  color: white;
+
+input[type="submit"]{
+  background-color: #1e1445;
+  color: rgb(255, 255, 255);
   cursor: pointer;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
   font-size: 18px;
+  padding: 15px 30px;
+  border-radius: 5px;
+  border: none;
   transition: background-color 0.3s ease;
   display: block;
   margin: 0 auto;
 }
 
 input[type="submit"]:hover {
-  background-color: #0069d9;
+  background-color: #d3b25f;
+  color: #1e1445;
 }
 
 .error {

@@ -1,13 +1,13 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Results from "./Results";
-import LICETLogo from "../licet-logo.png";
+import LICETLogo from "../alumni-logo.png";
 import "./adminHome.css";
 import { AuthContext } from "../../auth/Authcontext";
 
 const AdminHome = () => {
   const Navigate = useNavigate();
-  const { currentUsers ,logout} = useContext(AuthContext);
+  const { currentUsers, logout } = useContext(AuthContext);
 
   const [electionStatus, setElectionStatus] = useState({
     president: false,
@@ -16,50 +16,57 @@ const AdminHome = () => {
     treasurer: false,
     executives: false,
   });
+  const handleLogout = async () => {
+    Navigate("/admin-login");
+    await logout();
+  };
 
-  const presidentArray = currentUsers.data.President;
- const vpresidentArray = currentUsers.data.VicePresident;
-  const treasurerArray = currentUsers.data.Treasurer;
-  const execrArray = currentUsers.data.Executive;
-  const JsArray = currentUsers.data.JointSecretary;
+  const presidentArray = currentUsers.data.President ;
+  const vpresidentArray = currentUsers.data.VicePresident ;
+  const treasurerArray = currentUsers.data.Treasurer  ;
+  const execrArray = currentUsers.data.Executive ;
+  const JsArray = currentUsers.data.JointSecretary ;
 
-
-  const presidentLength = presidentArray.length;
-  const vpresidentLength = vpresidentArray.length;
-  const tLength = treasurerArray.length;
-  const exeLength = execrArray.length;
-  const JsLength = JsArray.length;
+  const presidentLength = presidentArray.length ;
+  const vpresidentLength = vpresidentArray.length ;
+  const tLength = treasurerArray.length ;
+  const exeLength = execrArray.length ;
+  const JsLength = JsArray.length ;
 
   let president_Totalvotes = 0;
   for (let index = 0; index < presidentLength; index++) {
-    president_Totalvotes = president_Totalvotes  + currentUsers.data.President[index].votecnt;
+    president_Totalvotes =
+      president_Totalvotes + currentUsers.data.President[index].votecnt;
   }
 
   let Vicepresident_Totalvotes = 0;
   for (let index = 0; index < vpresidentLength; index++) {
-    Vicepresident_Totalvotes = Vicepresident_Totalvotes  + currentUsers.data.VicePresident[index].votecnt;
+    Vicepresident_Totalvotes =
+      Vicepresident_Totalvotes + currentUsers.data.VicePresident[index].votecnt;
   }
   let treasurer_Totalvotes = 0;
   for (let index = 0; index < tLength; index++) {
-    treasurer_Totalvotes = treasurer_Totalvotes  + currentUsers.data.Treasurer[index].votecnt;
+    treasurer_Totalvotes =
+      treasurer_Totalvotes + currentUsers.data.Treasurer[index].votecnt;
   }
   let exec_Totalvotes = 0;
   for (let index = 0; index < exeLength; index++) {
-    exec_Totalvotes = exec_Totalvotes  + currentUsers.data.Executive[index].votecnt;
+    exec_Totalvotes =
+      exec_Totalvotes + currentUsers.data.Executive[index].votecnt;
   }
   let JointSecretary_Totalvotes = 0;
   for (let index = 0; index < JsLength; index++) {
-    JointSecretary_Totalvotes = JointSecretary_Totalvotes  + currentUsers.data.JointSecretary[index].votecnt;
+    JointSecretary_Totalvotes =
+      JointSecretary_Totalvotes +
+      currentUsers.data.JointSecretary[index].votecnt;
   }
-  
-  
-  console.log(president_Totalvotes);
-  // console.log("President Array Length:", presidentLength); 
+
+  //console.log(president_Totalvotes);
+  // console.log("President Array Length:", presidentLength);
   // console.log("Vice President Array Length:", vpresidentLength);
   // console.log("Treasure President Array Length:", tLength);
   // console.log("Executive Array Length:", exeLength);
   // console.log("Jointsecreatary Array Length:", JsLength);
-  
 
   const handleToggle = (election) => {
     setElectionStatus((prevStatus) => ({
@@ -68,23 +75,24 @@ const AdminHome = () => {
     }));
   };
 
-  const handleLogout = async () => {
-    await logout();
-    Navigate("/admin-login");
-  };
 
- 
+
   return (
     <div className="admin-container">
       <div className="vote-container">
         <div className="header">
           <div className="header-left">
             <Link to="/admin">
-              <img src={LICETLogo} alt="LICET Logo" className="logo" />
+              <img src={LICETLogo} alt="LICET Logo" className="logo" style={{"height" : "120px" ,  "width": "90px", "margin-left":"10px"}}/>
             </Link>
           </div>
           <div className="header-center">
-            <h1 className="election-title" style={{"font-size": "35px", "margin-right": "-220px"}}>LICET ALUMNI COUNCIL ELECTION</h1>
+            <h1
+              className="election-title"
+              style={{ "font-size": "35px", "margin-right": "-220px", "color" : "#d3b25f" }}
+            >
+              LICET ALUMNI ASSOCIATION ELECTION
+            </h1>
           </div>
           <div className="header-right">
             <nav className="nav-menu">

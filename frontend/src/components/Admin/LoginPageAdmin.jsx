@@ -1,6 +1,9 @@
 import React, { useState , useContext} from "react";
 import LICETLogo from "../licet-logo.png";
 import "./LoginPageAdmin.css";
+import lc from "../licet-logo-circle.png";
+import alumnilogo from "../alumni-logo.png";
+import licetcmp from "../licet-cmp.jpeg";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../auth/Authcontext";
 
@@ -48,10 +51,12 @@ const LoginPageAdmin = () => {
   };
 
   return (
-    <div className="container">
-      <img src={LICETLogo} alt="LICET Logo" className="logo" />
-      <h1 className="election-title-name" style={{"font-size": "35px"}}>LICET ALUMNI ASSOCIATION ELECTION</h1>
-      <br />
+  <div className="container" style={{"backgroundColor" : "#efe6d1"}}>
+      <div className="login-header-container">
+      <img src={lc}  style = {{ "height" : "120px" ,  "width": "120px" , "margin" : "15px" }}alt="LICET Logo" className="logo" />
+      <h1 className="election-title" style={{"fontSize": "35px" ,  "color": "#1e1445" , "marginTop" : "40px"}}>LICET ALUMNI ASSOCIATION ELECTION <br/> <br/>ADMIN LOGIN</h1>
+      <img src={alumnilogo} alt="LICET Logo" style = {{ "height" : "150px" ,  "width": "100px" }}className="logo" />
+      <br /></div>
       <div className="login-card">
         <form onSubmit={validateForm}>
           <label htmlFor="username">Username:</label>

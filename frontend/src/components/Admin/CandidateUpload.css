@@ -47,7 +47,7 @@
 }
 
 .logo {
-  width: 160px;
+  width: 100px;
   height: 70px;
   margin-right: 10px;
 }
@@ -72,7 +72,7 @@
 
 .logout-button {
   background-color: #fff;
-  color: #627ab8;
+  color: #1e1445;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
@@ -138,10 +138,9 @@
   background-color: #e5e0da;
 }
 
-.add-candidate-button,
-.create-button,
+
 .view-candidates-button {
-  background-color: #627ab8;
+  background-color: #1e1445;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -152,7 +151,7 @@
 }
 
 .export-candidates-button {
-  background-color: #627ab8;
+  background-color: #1e1445;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -163,14 +162,20 @@
 
 }
 
+.export-candidates-button:hover {
+  color: #1e1445;
+  background-color: #d3b25f;
+}
+
 .add-candidate-button:hover,
 .create-button:hover,
 .view-candidates-button:hover {
-  background-color: #486ca3;
+  background-color: #d3b25f;
+  color: #1e1445;
 }
 
 .view-candidates-button:active {
-  background-color: #3a5482;
+  background-color: #d3b25f;
 }
 
 .view-candidates-button:focus {
@@ -180,4 +185,20 @@
 .error-message {
   color: red;
   margin-top: 10px;
+}
+
+.export-button {
+  background-color: #1e1445;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.export-button:hover {
+  background-color: #d3b25f;
+  color: #1e1445;
 }

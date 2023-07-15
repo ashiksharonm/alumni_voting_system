@@ -1,10 +1,13 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useEffect} from "react"
 import { useNavigate } from "react-router-dom"
 import LICETLogo from "../licet-logo.png";
 import dhoniImage from "../dhoni.jpg";
 import kohliImage from "../kohli.png";
 import cand1 from "../002.jpg";
 import cand2 from "../antony.jpg";
+import alumnilogo from "../alumni-logo.png";
+import licetcmp from "../licet-cmp.jpeg";
+import lc from "../licet-logo-circle.png";
 import "./LoginPage.css";
 import { AuthContext } from "../../auth/Authcontext";
 
@@ -41,7 +44,7 @@ const LoginPage = () => {
       regno:"311111104015",
       dob:"16-03-1994",
       batch:"2011-2015",
-      position: "Vice President",
+      position: "VicePresident",
       photo : cand2,
       votecnt: 0,
       voted: false,
@@ -52,7 +55,7 @@ const LoginPage = () => {
       regno:"311120104010",
       dob:"16-03-2002",
       batch:"2020-2024",
-      position: "Vice President",
+      position: "VicePresident",
       photo : dhoniImage,
       votecnt: 0,
       voted: false,
@@ -97,7 +100,7 @@ const LoginPage = () => {
       regno:"311113104028",
       dob:"30-06-2003",
       batch:"2013-2017",
-      position: "Joint Secretary",
+      position: "JointSecretary",
       photo : dhoniImage,
       votecnt: 0,
       voted: false,
@@ -130,7 +133,7 @@ const LoginPage = () => {
       regno:"311116104052",
       dob:"26-03-2000",
       batch:"2016-2020",
-      position: "Joint Secretary",
+      position: "JointSecretary",
       photo : kohliImage,
       votecnt: 0,
       voted: false,
@@ -283,7 +286,7 @@ const LoginPage = () => {
         regno: "311115104032",
         dob: "02-02-1996",
         batch: "2015-2019",
-        position: "Vice President",
+        position: "VicePresident",
         photo : kohliImage,
         votecnt: 0,
         voted: false,
@@ -293,7 +296,7 @@ const LoginPage = () => {
         regno: "311119104032",
         dob: "03-03-1997",
         batch: "2018-2022",
-        position: "Joint Secretary",
+        position: "JointSecretary",
         photo : dhoniImage,
         votecnt: 0,
         voted: false,
@@ -323,7 +326,7 @@ const LoginPage = () => {
         regno: "311115104032",
         dob: "06-06-2000",
         batch: "2015-2019",
-        position: "Vice President",
+        position: "VicePresident",
         photo : kohliImage,
         votecnt: 0,
         voted: false,
@@ -333,7 +336,7 @@ const LoginPage = () => {
         regno: "311119104032",
         dob: "07-07-2001",
         batch: "2018-2022",
-        position: "Joint Secretary",
+        position: "JointSecretary",
         photo : dhoniImage,
         votecnt: 0,
         voted: false,
@@ -371,22 +374,23 @@ const LoginPage = () => {
   // Convert the documents array to JSON format
   
     
-    // const positions = [...new Set(initialNominees.map(nominee => nominee.position))];
-    // const nomineesByPosition = {};
-    // positions.forEach(position => {
-    // nomineesByPosition[position] = initialNominees.filter(nominee => nominee.position === position);
-    // });  const jsonDocuments = (nomineesByPosition);
+    const positions = [...new Set(initialNominees.map(nominee => nominee.position))];
+    const nomineesByPosition = {};
+    positions.forEach(position => {
+    nomineesByPosition[position] = initialNominees.filter(nominee => nominee.position === position);
+    });  
+    const jsonDocuments = (nomineesByPosition);
 
 
-    const positions = ["President", "Vice President", "Treasurer", "Joint Secretary", "Executive"];
+    // const positions = ["President", "VicePresident", "Treasurer", "Joint Secretary", "Executive"];
 
-    const groupedNominees = {};
+    // const groupedNominees = {};
     
-    for (const position of positions) {
-      groupedNominees[position] = initialNominees.filter(nominee => nominee.position === position);
-    }
-    console.log(groupedNominees);
-    const jsonDocuments = (groupedNominees);
+    // for (const position of positions) {
+    //   groupedNominees[position] = initialNominees.filter(nominee => nominee.position === position);
+    // }
+    // console.log(groupedNominees);
+    // const jsonDocuments = (groupedNominees);
 
 
 
@@ -397,15 +401,29 @@ const LoginPage = () => {
       setInputValid(regno.trim().length > 0 && dob.trim().length > 0);
       };
     
+     
+
+      const logcheck = () => {
+        if (currentUser?.data?.votecnt === 5) {
+          alert("You have already voted for all the elections!");
+          history("/"); // Redirect to login page
+        }
+      };
+  
+      
+
       const hsubmit = async (e) => {
         e.preventDefault();
+       // enterFullScreen();
 
         try{
               
               await login(input);
-              history('/');
+               history('/');
               //console.log(currentUser?.data?.votecnt);
               await fetchcandi(jsonDocuments);
+              logcheck();
+              // await fetchcandi();  - DB
              // alert('Logged In !!');
               history('/vote');
           }
@@ -419,13 +437,15 @@ const LoginPage = () => {
         };
  
   return (
-    <div className="container">
-      <img src={LICETLogo} alt="LICET Logo" className="logo" />
-      <h1 className="election-title" style={{"font-size": "35px"}}>LICET ALUMNI ASSOCIATION ELECTION</h1>
-      <br />
-      <div className="login-card">
+    <div className="container" style={{"backgroundColor" : "#efe6d1"}}>
+      <div className="login-header-container">
+      <img src={lc}  style = {{ "height" : "120px" ,  "width": "120px" , "margin" : "15px" }}alt="LICET Logo" className="logo" />
+      <h1 className="election-title" style={{"fontSize": "35px" ,  "color": "#1e1445" , "marginTop" : "40px"}}>LICET ALUMNI ASSOCIATION ELECTION</h1>
+      <img src={alumnilogo} alt="LICET Logo" style = {{ "height" : "150px" ,  "width": "100px" }}className="logo" />
+      <br /></div>
+      <div className="login-card" style={{"backgroundColor":"#FFF"}}>
         <form>
-          <label htmlFor="regno">Registration Number</label>
+          <label htmlFor="regno" style={{"color" : "#1e1445"}}>Registration Number</label>
           <input required
             type="text"
             id="regno"
@@ -434,7 +454,7 @@ const LoginPage = () => {
             placeholder="Eg. 311XXXXXXXXX"
           />
           <br />
-          <label htmlFor="dob">Date of Birth</label>
+          <label htmlFor="dob" style={{"color" : "#1e1445"}}>Date of Birth</label>
           <input required
             type="text"
             id="dob"
@@ -444,7 +464,8 @@ const LoginPage = () => {
           />
           <br />
           <br />
-          <input type="submit" onClick={hsubmit} disabled={!isInputValid } value="Login" />
+          <input type="submit" onClick={hsubmit} disabled={!isInputValid } value="Login"/>
+          {/* style={{"background-color": "#1e1445", "color":"#d3b25f"}} */}
           {err && <p>{err}</p>}
         </form>
       </div>
@@ -453,3 +474,68 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+
+
+// >===========================================================================================================
+
+// FULL SCREEN
+
+// const [isFullScreen, setIsFullScreen] = useState(false);
+
+// const enterFullScreen = () => {
+//   const element = document.documentElement;
+//   if (element.requestFullscreen) {
+//     element.requestFullscreen();
+//   } else if (element.mozRequestFullScreen) {
+//     element.mozRequestFullScreen();
+//   } else if (element.webkitRequestFullscreen) {
+//     element.webkitRequestFullscreen();
+//   } else if (element.msRequestFullscreen) {
+//     element.msRequestFullscreen();
+//   }
+//   setIsFullScreen(true);
+// };
+
+// // const fetchcandis = async () => {
+
+// //     alert("Candidates Fetched Successfully !!");
+// //     await fetchcandi();
+// //     history("/");
+// // };
+// // useEffect(() => {
+// //   console.log("UseEffect running");
+// //   fetchcandis();
+// // }, []);
+
+
+// useEffect(() => {
+// const handleKeyDown = (event) => {
+// if (event.key === "Escape") {
+//   event.preventDefault();
+//   enterFullScreen();
+// }
+// };
+
+// if (isFullScreen) {
+// document.addEventListener("keydown", handleKeyDown);
+
+// }
+
+// return () => {
+// document.removeEventListener("keydown", handleKeyDown);
+
+// };
+// }, [isFullScreen]);
+
+// // const exitFullScreen = () => {
+// //   if (document.exitFullscreen) {
+// //     document.exitFullscreen();
+// //   } else if (document.mozCancelFullScreen) {
+// //     document.mozCancelFullScreen();
+// //   } else if (document.webkitExitFullscreen) {
+// //     document.webkitExitFullscreen();
+// //   } else if (document.msExitFullscreen) {
+// //     document.msExitFullscreen();
+// //   }
+// // };
