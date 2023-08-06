@@ -13,7 +13,7 @@ const AdminHome = () => {
     president: false,
     vicePresident: false,
     secretary: false,
-    treasurer: false,
+    // treasurer: false,
     executives: false,
   });
   const handleLogout = async () => {
@@ -23,13 +23,13 @@ const AdminHome = () => {
 
   const presidentArray = currentUsers.data.President ;
   const vpresidentArray = currentUsers.data.VicePresident ;
-  const treasurerArray = currentUsers.data.Treasurer  ;
+  // const treasurerArray = currentUsers.data.Treasurer  ;
   const execrArray = currentUsers.data.Executive ;
   const JsArray = currentUsers.data.JointSecretary ;
 
   const presidentLength = presidentArray.length ;
   const vpresidentLength = vpresidentArray.length ;
-  const tLength = treasurerArray.length ;
+  // const tLength = treasurerArray.length ;
   const exeLength = execrArray.length ;
   const JsLength = JsArray.length ;
 
@@ -44,11 +44,11 @@ const AdminHome = () => {
     Vicepresident_Totalvotes =
       Vicepresident_Totalvotes + currentUsers.data.VicePresident[index].votecnt;
   }
-  let treasurer_Totalvotes = 0;
-  for (let index = 0; index < tLength; index++) {
-    treasurer_Totalvotes =
-      treasurer_Totalvotes + currentUsers.data.Treasurer[index].votecnt;
-  }
+  // let treasurer_Totalvotes = 0;
+  // for (let index = 0; index < tLength; index++) {
+  //   treasurer_Totalvotes =
+  //     treasurer_Totalvotes + currentUsers.data.Treasurer[index].votecnt;
+  // }
   let exec_Totalvotes = 0;
   for (let index = 0; index < exeLength; index++) {
     exec_Totalvotes =
@@ -89,7 +89,7 @@ const AdminHome = () => {
           <div className="header-center">
             <h1
               className="election-title"
-              style={{ "font-size": "35px", "margin-right": "-220px", "color" : "#d3b25f" }}
+              style={{ "font-size": "30px", "margin-right": "-220px", "color" : "#d3b25f" }}
             >
               LICET ALUMNI ASSOCIATION ELECTION
             </h1>
@@ -136,14 +136,14 @@ const AdminHome = () => {
               <br />
               {/* Display any other relevant information */}
             </div>
-            <div className="election-status-card">
+            {/* <div className="election-status-card">
               <h2>Treasurer</h2>
               <br />
               <p>Number of Candidates: {tLength}</p>
               <p>Total Votes: {treasurer_Totalvotes}</p>
               <br />
-              {/* Display any other relevant information */}
-            </div>
+              
+            </div> */}
             <div className="election-status-card">
               <h2>Executives</h2>
               <br />

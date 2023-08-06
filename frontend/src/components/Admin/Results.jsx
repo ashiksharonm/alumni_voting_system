@@ -16,7 +16,7 @@ const Results = () => {
 
   const presidentArray = currentUsers.data.President;
   const vpresidentArray = currentUsers.data.VicePresident;
-  const treasurerArray = currentUsers.data.Treasurer;
+  // const treasurerArray = currentUsers.data.Treasurer;
   const execrArray = currentUsers.data.Executive;
   const JsArray = currentUsers.data.JointSecretary;
 
@@ -56,14 +56,14 @@ const Results = () => {
         color: getRandomColor(),
       })),
     },
-    {
-      title: "Treasurer",
-      data: treasurerArray.map((candidate, index) => ({
-        label: candidate.name,
-        y: candidate.votecnt,
-        color: getRandomColor(),
-      })),
-    },
+    // {
+    //   title: "Treasurer",
+    //   data: treasurerArray.map((candidate, index) => ({
+    //     label: candidate.name,
+    //     y: candidate.votecnt,
+    //     color: getRandomColor(),
+    //   })),
+    // },
     {
       title: "Executives",
       data: execrArray.map((candidate, index) => ({
@@ -111,13 +111,13 @@ const Results = () => {
         <header className="header">
           <div className="header-left">
             <Link to="/admin">
-              <img src={LICETLogo} alt="LICET Logo" className="logo" style={{"height" : "120px" ,  "width": "90px", "margin-left":"10px"}}/>
+              <img src={LICETLogo} alt="LICET Logo" className="logo" style={{"height" : "120px" ,  "width": "90px", "marginLeft":"10px"}}/>
             </Link>
           </div>
           <div className="header-center">
             <h1
               className="election-title"
-              style={{ fontSize: "35px", marginRight: "-292px" }}
+              style={{ fontSize: "30px", marginRight: "-292px" }}
             >
               LICET ALUMNI ASSOCIATION ELECTION
             </h1>

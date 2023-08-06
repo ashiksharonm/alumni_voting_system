@@ -1,0 +1,288 @@
+[{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0935"
+  },
+  "id": 1,
+  "name": "Pon Rahul M",
+  "regno": "311117205041",
+  "dob": "20-01-2000",
+  "batch": "2017-2021",
+  "position": "Executive",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0936"
+  },
+  "id": 2,
+  "name": "Alex Ezhil Arasu",
+  "regno": "311117104010",
+  "dob": "10-02-1999",
+  "batch": "2017-2021",
+  "position": "Executive",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0937"
+  },
+  "id": 3,
+  "name": "Devadarshan Nirmal",
+  "regno": "311116205011",
+  "dob": "29-05-1999",
+  "batch": "2016-2020",
+  "position": "VicePresident",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0938"
+  },
+  "id": 4,
+  "name": "Subashree ",
+  "regno": "311117205057",
+  "dob": "28-08-1999",
+  "batch": "2017-2021",
+  "position": "Executive",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0939"
+  },
+  "id": 5,
+  "name": "Joish",
+  "regno": "311114104027",
+  "dob": "23-03-1997",
+  "batch": "2014-2018",
+  "position": "President",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b093a"
+  },
+  "id": 6,
+  "name": "Elizabeth Subhiksha Victoria",
+  "regno": "311119205013",
+  "dob": "11-10-2001",
+  "batch": "2019-2023",
+  "position": "Executive",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b093b"
+  },
+  "id": 7,
+  "name": "Vimal R",
+  "regno": "32810114059",
+  "dob": "22-05-1993",
+  "batch": "2010-2014",
+  "position": "President",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b093c"
+  },
+  "id": 8,
+  "name": "Charles M D ",
+  "regno": "311112106301",
+  "dob": "21-03-1993",
+  "batch": "2012- 2016",
+  "position": "Executive",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b093d"
+  },
+  "id": 9,
+  "name": "VEL KUMAR V",
+  "regno": "32810105054",
+  "dob": "01-07-1992",
+  "batch": "2010-2014",
+  "position": "President",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b093e"
+  },
+  "id": 10,
+  "name": "Rachel Celin Judith ",
+  "regno": "311112205046",
+  "dob": "13-08-1994",
+  "batch": "2012- 2016",
+  "position": "Executive",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b093f"
+  },
+  "id": 11,
+  "name": "Ahamed Anas S N",
+  "regno": "311119114004",
+  "dob": "22-07-2001",
+  "batch": "2019-2023",
+  "position": "Executive",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0940"
+  },
+  "id": 12,
+  "name": "Sergius Joe M",
+  "regno": "311111114098",
+  "dob": "08-10-1993",
+  "batch": "2011-2015",
+  "position": "Executive",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0941"
+  },
+  "id": 13,
+  "name": "RAHUL RANJIT",
+  "regno": "311116105044",
+  "dob": "03-11-1998",
+  "batch": "2016-2020",
+  "position": "VicePresident",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0942"
+  },
+  "id": 14,
+  "name": "Kiran J",
+  "regno": "32810105027",
+  "dob": "12-07-1992",
+  "batch": "2010-2014",
+  "position": "Executive",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0943"
+  },
+  "id": 15,
+  "name": "Govind Raj K",
+  "regno": "32810205017",
+  "dob": "17-04-1993",
+  "batch": "2010-2014",
+  "position": "JointSecretary",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0944"
+  },
+  "id": 16,
+  "name": "Jessy S",
+  "regno": "311113104030",
+  "dob": "11-06-1995",
+  "batch": "2013-2017",
+  "position": "President",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0945"
+  },
+  "id": 17,
+  "name": "Arulius Savio ",
+  "regno": "311112114018",
+  "dob": "21-05-1995",
+  "batch": "2012- 2016",
+  "position": "JointSecretary",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0946"
+  },
+  "id": 18,
+  "name": "Luvin",
+  "regno": "311114114073",
+  "dob": "09-10-1996",
+  "batch": "2014-2018",
+  "position": "Executive",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0947"
+  },
+  "id": 19,
+  "name": "Nitin S",
+  "regno": "311116104031",
+  "dob": "01-10-1998",
+  "batch": "2016-2020",
+  "position": "VicePresident",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0948"
+  },
+  "id": 20,
+  "name": "Theliban Aravindan",
+  "regno": "311112114104",
+  "dob": "01-12-1994",
+  "batch": "2012- 2016",
+  "position": "Executive",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b0949"
+  },
+  "id": 21,
+  "name": "Arulious Jora",
+  "regno": "311115105007",
+  "dob": "26-06-1998",
+  "batch": "2015-2019",
+  "position": "Executive",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b094a"
+  },
+  "id": 22,
+  "name": "Garwin L",
+  "regno": "311115104305",
+  "dob": "23-04-1997",
+  "batch": "2015-2019",
+  "position": "President",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b094b"
+  },
+  "id": 23,
+  "name": "Joselina Sherin ",
+  "regno": "311115106026",
+  "dob": "06-08-1997",
+  "batch": "2015-2019",
+  "position": "JointSecretary",
+  "votecnt": 0
+},
+{
+  "_id": {
+    "$oid": "64cdc1659a8eb7a2d40b094c"
+  },
+  "id": 24,
+  "name": "Robin John",
+  "regno": "32810114042",
+  "dob": "25-08-1992",
+  "batch": "2010-2014",
+  "position": "Vice President",
+  "votecnt": 0
+}]

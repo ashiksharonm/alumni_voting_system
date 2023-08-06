@@ -7,8 +7,9 @@ const cors = require("cors")
 //=======================> User <====================
 
 //router.post("/api/user/signup", userController.register);
-router.get("/api/user/login", userController.fetchLCandidate);
+
 router.post("/api/user/login", userController.loginUser);
+router.get("/api/user/login", userController.fetchLCandidate);
 // router.get("/api/user/vote",userController.fetchCandi);
 // router.post("/api/user/vote", userController.setusrvtcnt);
 // router.post("/api/user/vote", userController.updatecandiVote);

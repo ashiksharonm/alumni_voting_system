@@ -1,12 +1,33 @@
 import React, { useContext, useState, useEffect} from "react"
 import { useNavigate } from "react-router-dom"
-import LICETLogo from "../licet-logo.png";
-import dhoniImage from "../dhoni.jpg";
-import kohliImage from "../kohli.png";
-import cand1 from "../002.jpg";
-import cand2 from "../antony.jpg";
+// import LICETLogo from "../licet-logo.png";
+import c1 from "../img/1.jpg";
+import c2 from "../img/2.jpg";
+import c3 from "../img/3.jpg";
+import c4 from "../img/4.jpeg";
+import c5 from "../img/5.jpeg";
+import c6 from "../img/6.jpg";
+import c7 from "../img/7.JPG";
+import c8 from "../img/8.JPG";
+import c9 from "../img/9.jpg";
+import c10 from "../img/10.jpeg";
+import c11 from "../img/11.jpeg";
+import c12 from "../img/12.JPG";
+import c13 from "../img/13.jpeg";
+import c14 from "../img/14.jpg";
+import c15 from "../img/15.jpeg";
+import c16 from "../img/16.jpeg";
+import c17 from "../img/17.jpg";
+import c18 from "../img/18.jpeg";
+import c19 from "../img/19.jpg";
+import c20 from "../img/20.jpg";
+import c21 from "../img/21.jpg";
+import c22 from "../img/22.jpg";
+import c23 from "../img/23.jpg";
+import c24 from "../img/24.jpeg";
+
 import alumnilogo from "../alumni-logo.png";
-import licetcmp from "../licet-cmp.jpeg";
+//import licetcmp from "../licet-cmp.jpeg";
 import lc from "../licet-logo-circle.png";
 import "./LoginPage.css";
 import { AuthContext } from "../../auth/Authcontext";
@@ -26,333 +47,271 @@ const LoginPage = () => {
 
 
 
-    const initialNominees = [
-      {
-        id: 1,
-        name: "John Doe",
-      regno:"L311112104009",
-      dob:"5-11-1996",
-      batch:"2012-2016",
+    const initialNominees = [{
+      
+      id: 1,
+      name: "Pon Rahul M",
+      regno: "311117205041",
+      dob: "20-01-2000",
+      batch: "2017-2021",
+      position: "Executive",
+      photo : c1,
+      votect: 0
+    },
+    {
+      
+      id: 2,
+      name: "Alex Ezhil Arasu",
+      regno: "311117104010",
+      dob: "10-02-1999",
+      batch: "2017-2021",
+      position: "Executive",
+      photo : c2,  
+      votect: 0
+    },
+    {
+      
+      id: 3,
+      name: "Devadarshan Nirmal",
+      regno: "311116205011",
+      dob: "29-05-1999",
+      batch: "2016-2020",
+      position: "VicePresident",
+      photo : c3,      
+      votect: 0
+    },
+    {
+      
+      id: 4,
+      name: "Subashree ",
+      regno: "311117205057",
+      dob: "28-08-1999",
+      batch: "2017-2021",
+      position: "Executive",
+      photo : c4,  
+      votect: 0
+    },
+    {
+      
+      id: 5,
+      name: "Joish",
+      regno: "311114104027",
+      dob: "23-03-1997",
+      batch: "2014-2018",
       position: "President",
-      photo :cand1,
-      votecnt: 0,
-      voted: false,
-      },
-      {
-        id: 2,
-        name: "Jane Smith",
-      regno:"311111104015",
-      dob:"16-03-1994",
-      batch:"2011-2015",
+      photo : c5,  
+      votect: 0
+    },
+    {
+      
+      id: 6,
+      name: "Elizabeth Subhiksha Victoria",
+      regno: "311119205013",
+      dob: "11-10-2001",
+      batch: "2019-2023",
+      position: "Executive",
+      photo : c6,  
+      votect: 0
+    },
+    {
+      
+      id: 7,
+      name: "Vimal R",
+      regno: "32810114059",
+      dob: "22-05-1993",
+      batch: "2010-2014",
+      position: "President",
+      photo : c7,  
+      votect: 0
+    },
+    {
+      
+      id: 8,
+      name: "Charles M D ",
+      regno: "311112106301",
+      dob: "21-03-1993",
+      batch: "2012- 2016",
+      position: "Executive",
+      photo : c8, 
+       votect: 0
+    },
+    {
+      
+      id: 9,
+      name: "VEL KUMAR V",
+      regno: "32810105054",
+      dob: "01-07-1992",
+      batch: "2010-2014",
+      position: "President",
+      photo : c9,  
+      votect: 0
+    },
+    {
+      
+      id: 10,
+      name: "Rachel Celin Judith ",
+      regno: "311112205046",
+      dob: "13-08-1994",
+      batch: "2012- 2016",
+      position: "Executive",
+      photo : c10, 
+       votect: 0
+    },
+    {
+      
+      id: 11,
+      name: "Ahamed Anas S N",
+      regno: "311119114004",
+      dob: "22-07-2001",
+      batch: "2019-2023",
+      position: "Executive",
+      photo : c11, 
+       votect: 0
+    },
+    {
+      
+      id: 12,
+      name: "Sergius Joe M",
+      regno: "311111114098",
+      dob: "08-10-1993",
+      batch: "2011-2015",
+      position: "Executive",
+       photo : c12, 
+        votect: 0
+    },
+    {
+      
+      id: 13,
+      name: "RAHUL RANJIT",
+      regno: "311116105044",
+      dob: "03-11-1998",
+      batch: "2016-2020",
       position: "VicePresident",
-      photo : cand2,
-      votecnt: 0,
-      voted: false,
-      },
-      {
-         id: 3,
-         name: "James",
-      regno:"311120104010",
-      dob:"16-03-2002",
-      batch:"2020-2024",
+          photo : c13,     
+           votect: 0
+    },
+    {
+      
+      id: 14,
+      name: "Kiran J",
+      regno: "32810105027",
+      dob: "12-07-1992",
+      batch: "2010-2014",
+      position: "Executive",
+   
+       photo : c14,  
+       votect: 0
+    },
+    {
+      
+      id: 15,
+      name: "Govind Raj K",
+      regno: "32810205017",
+      dob: "17-04-1993",
+      batch: "2010-2014",
+      position: "JointSecretary",
+      photo : c15,
+      votect: 0
+    },
+    {
+      
+      id: 16,
+      name: "Jessy S",
+      regno: "311113104030",
+      dob: "11-06-1995",
+      batch: "2013-2017",
+      position: "President",
+       photo : c16,
+         votect: 0
+    },
+    {
+      
+      id: 17,
+      name: "Arulius Savio ",
+      regno: "311112114018",
+      dob: "21-05-1995",
+      batch: "2012- 2016",
+      position: "JointSecretary",
+        photo : c17,
+      votect: 0
+    },
+    {
+      
+      id: 18,
+      name: "Luvin",
+      regno: "311114114073",
+      dob: "09-10-1996",
+      batch: "2014-2018",
+      position: "Executive",
+      photo : c18,  
+      votect: 0
+    },
+    {
+      
+      id: 19,
+      name: "Nitin S",
+      regno: "311116104031",
+      dob: "01-10-1998",
+      batch: "2016-2020",
       position: "VicePresident",
-      photo : dhoniImage,
-      votecnt: 0,
-      voted: false,
-      },
-      {
-        id: 4,
-        name: "Jones",
-      regno:"311112104025",
-      dob:"30-06-2003",
-      batch:"2012-2016",
+      photo : c19,    
+        votect: 0
+    },
+    {
+      
+      id: 20,
+      name: "Theliban Aravindan",
+      regno: "311112114104",
+      dob: "01-12-1994",
+      batch: "2012- 2016",
       position: "Executive",
-      photo : kohliImage,
-      votecnt: 0,
-      voted: false,
-      },
-      {
-        
-        id: 5,
-        name: "Raina",
-      regno:"311120104054",
-      dob:"25-06-1994",
-      batch:"2020-2024",
-      position: "Treasurer",
-      photo : dhoniImage,
-      votecnt: 0,
-      voted: false,
-      },
-      {
-        id: 6,
-        name: "Farukh",
-      regno:"311118104058",
-      dob:"25-06-2001",
-      batch:"2018-2022",
-      position: "Treasurer",
-      photo : kohliImage,
-      votecnt: 0,
-      voted: false,
-      },
-      {
-        id: 7,
-        name: "Sharon",
-      regno:"311113104028",
-      dob:"30-06-2003",
-      batch:"2013-2017",
+       photo : c20,  
+       votect: 0
+    },
+    {
+      
+      id: 21,
+      name: "Arulious Jora",
+      regno: "311115105007",
+      dob: "26-06-1998",
+      batch: "2015-2019",
+      position: "Executive",
+   photo : c21,  
+   votect: 0
+    },
+    {
+      
+      id: 22,
+      name: "Garwin L",
+      regno: "311115104305",
+      dob: "23-04-1997",
+      batch: "2015-2019",
+      position: "President",
+     photo : c22, 
+      votect: 0
+    },
+    {
+      
+      id: 23,
+      name: "Joselina Sherin ",
+      regno: "311115106026",
+      dob: "06-08-1997",
+      batch: "2015-2019",
       position: "JointSecretary",
-      photo : dhoniImage,
-      votecnt: 0,
-      voted: false,
-      },
-      {
-        id: 8,
-        name: "Rasesh",
-      regno:"311115104005",
-      dob:"10-08-1999",
-      batch:"2015-2019",
-      position: "Executive",
-      photo : kohliImage,
-      votecnt: 0,
-      voted: false,
-      },
-      {
-        id: 9,
-        name: "Ramesh",
-      regno:"311111104018",
-      dob:"18-04-1998",
-      batch:"2011-2015",
-      position: "Executive",
-      photo : dhoniImage,
-      votecnt: 0,
-      voted: false,
-      },
-      {
-        id: 10,
-        name: "Rahul",
-      regno:"311116104052",
-      dob:"26-03-2000",
-      batch:"2016-2020",
-      position: "JointSecretary",
-      photo : kohliImage,
-      votecnt: 0,
-      voted: false,
-      },
-      {
-        id: 11,
-        name: "Danush",
-      regno:"311117104059",
-      dob:"15-07-2001",
-      batch:"2017-2021",
-      position: "Executive",
-      photo : dhoniImage,
-      votecnt: 0,
-      voted: false,
-      },
-      {
-        id: 12,
-        name: "Senthil",
-      regno:"311114104068",
-      dob:"31-12-2000",
-      batch:"2014-2018",
-      position: "Executive",
-      photo : kohliImage,
-      votecnt: 0,
-      voted: false,
-      },
-      {
-        id: 13,
-        name: "Faisal",
-      regno:"311119104008",
-      dob:"12-05-2000",
-      batch:"2019-2021",
-      position: "Executive",
-      photo : dhoniImage,
-      votecnt: 0,
-      voted: false,
-      },
-      {
-        id: 14,
-        name: "Gautam",
-        regno: "31111104026",
-        dob: "15-03-2001",
-        batch: "2011-2015",
-        position: "Executive",
-        photo : kohliImage,
-        votecnt: 0,
-        voted: false,
-      },
-      {
-        id: 15,
-        name: "Harish",
-        regno: "311112104027",
-        dob: "05-11-2000",
-        batch: "2012-2016",
-        position: "Executive",
-        photo : dhoniImage,
-        votecnt: 0,
-        voted: false,
-      },
-      {
-        id: 16,
-        name: "Sarah",
-        regno: "311113104028",
-        dob: "20-09-1999",
-        batch: "2013-2017",
-        position: "Executive",
-        photo : kohliImage,
-        votecnt: 0,
-        voted: false,
-      },
-      {
-        id: 17,
-        name: "Patrick",
-        regno: "311114104029",
-        dob: "10-12-1998",
-        batch: "2014-2018",
-        position: "Executive",
-        photo : dhoniImage,
-        votecnt: 0,
-        voted: false,
-      },
-      {
-        id: 18,
-        name: "Emily",
-        regno: "311115104030",
-        dob: "12-08-1997",
-        batch: "2015-2019",
-        position: "Executive",
-        photo : kohliImage,
-        votecnt: 0,
-        voted: false,
-      },
-      {
-        id: 19,
-        name: "Daniel",
-        regno: "311116104031",
-        dob: "03-04-1996",
-        batch: "2016-2020",
-        position: "Executive",
-        photo : dhoniImage,
-        votecnt: 0,
-        voted: false,
-      },
-      {
-        id: 20,
-        name: "Olivia",
-        regno: "311117104032",
-        dob: "25-11-1995",
-        batch: "2017-2021",
-        position: "Executive",
-        photo : kohliImage,
-        votecnt: 0,
-        voted: false,
-      },
-      {
-        id: 21,
-        name: "Benjamin",
-        regno: "311118104033",
-        dob: "09-07-1994",
-        batch: "2018-2022",
-        position: "Executive",
-        photo : dhoniImage,
-        votecnt: 0,
-        voted: false,
-      },
-      {
-        id: 22,
-        name: "Sophia",
-        regno: "311119104034",
-        dob: "18-02-1993",
-        batch: "2019-2023",
-        position: "Executive",
-        photo : kohliImage,
-        votecnt: 0,
-        voted: false,
-      },
-      {id: 23,
-        name: "Johnny",
-        regno: "311111104032",
-        dob: "01-01-1995",
-        batch: "2011-2015",
-        position: "President",
-        photo : dhoniImage,
-        votecnt: 0,
-        voted: false,
-        },
-  
-        {id: 24,
-        name: "Emma",
-        regno: "311115104032",
-        dob: "02-02-1996",
-        batch: "2015-2019",
-        position: "VicePresident",
-        photo : kohliImage,
-        votecnt: 0,
-        voted: false,
-        },
-        {id: 25,
-        name: "Mike",
-        regno: "311119104032",
-        dob: "03-03-1997",
-        batch: "2018-2022",
-        position: "JointSecretary",
-        photo : dhoniImage,
-        votecnt: 0,
-        voted: false,
-        },
-        {id: 26,
-        name: "Sofia",
-        regno: "311113104032",
-        dob: "04-04-1998",
-        batch: "2013-2017",
-        position: "Treasurer",
-        photo : kohliImage,
-        votecnt: 0,
-        voted: false,
-        },
-        {id: 27,
-        name: "Williams",
-        regno: "311111104032",
-        dob: "05-05-1999",
-        batch: "2011-2015",
-        position: "President",
-        photo : dhoniImage,
-        votecnt: 0,
-        voted: false,
-        },
-        {id: 28,
-        name: "Oliversmith",
-        regno: "311115104032",
-        dob: "06-06-2000",
-        batch: "2015-2019",
-        position: "VicePresident",
-        photo : kohliImage,
-        votecnt: 0,
-        voted: false,
-        },
-        {id: 29,
-        name: "Ava",
-        regno: "311119104032",
-        dob: "07-07-2001",
-        batch: "2018-2022",
-        position: "JointSecretary",
-        photo : dhoniImage,
-        votecnt: 0,
-        voted: false,
-        },
-        {id: 30,
-          name: "Jesed",
-          regno: "311114104032",
-          dob: "08-08-1999",
-          batch: "2014-2017",
-          position: "Treasurer",
-          photo : kohliImage,
-          votecnt: 0,
-          voted: false
-          },
-      // Rest of the nominees...
-    ];
+      photo : c23,
+      votect: 0
+    },
+    {
+      
+      id: 24,
+      name: "Robin John",
+      regno: "32810114042",
+      dob: "25-08-1992",
+      batch: "2010-2014",
+      position: "VicePresident",
+      photo : c24,
+      votect: 0
+    },];
   
     // Assuming you have an array of MongoDB documents
   /*const documents = [
@@ -404,8 +363,10 @@ const LoginPage = () => {
      
 
       const logcheck = () => {
-        if (currentUser?.data?.votecnt === 5) {
+        if (currentUser?.data?.votecnt === 4) {
           alert("You have already voted for all the elections!");
+          logout();
+      
           history("/"); // Redirect to login page
         }
       };
@@ -421,8 +382,9 @@ const LoginPage = () => {
               await login(input);
                history('/');
               //console.log(currentUser?.data?.votecnt);
-              await fetchcandi(jsonDocuments);
               logcheck();
+              await fetchcandi(jsonDocuments);
+              
               // await fetchcandi();  - DB
              // alert('Logged In !!');
               history('/vote');

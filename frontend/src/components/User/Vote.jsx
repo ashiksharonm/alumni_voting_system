@@ -38,10 +38,10 @@ const Vote = () => {
       ...nominee,
       voted: initialVotedStatus[nominee.id] || false,
     })),
-    Treasurer: nominees["Treasurer"].map((nominee) => ({
-      ...nominee,
-      voted: initialVotedStatus[nominee.id] || false,
-    })),
+    // Treasurer: nominees["Treasurer"].map((nominee) => ({
+    //   ...nominee,
+    //   voted: initialVotedStatus[nominee.id] || false,
+    // })),
     "JointSecretary": nominees["JointSecretary"].map((nominee) => ({
       ...nominee,
       voted: initialVotedStatus[nominee.id] || false,
@@ -60,7 +60,7 @@ const Vote = () => {
   });
 
   const logcheck = () => {
-    if (currentUser?.data?.votecnt === 5) {
+    if (currentUser?.data?.votecnt === 4) {
       alert("You have already voted for all the elections!");
       history("/"); // Redirect to login page
     }
@@ -128,7 +128,7 @@ const Vote = () => {
   };
 
   const handleLogout = async () => {
-    if (currentUser?.data?.votecnt === 5) {
+    if (currentUser?.data?.votecnt === 4) {
       const confirmed = window.confirm(
         "You have voted for all the elections! Please logout!!"
       );
@@ -239,7 +239,7 @@ const Vote = () => {
       <br />
       <br />
       <br />
-      {/* Treasurer Section */}
+      {/* Treasurer Section
       <div className="election-section">
         <h2>Treasurer</h2>
         <div className="nominee-list">
@@ -272,7 +272,7 @@ const Vote = () => {
       </div>
       <br />
       <br />
-      <br />
+      <br /> */}
 
       {/* JointSecretary Section */}
       <div className="election-section">
