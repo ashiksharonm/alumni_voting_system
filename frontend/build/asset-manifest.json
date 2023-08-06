@@ -1,0 +1,42 @@
+{
+  "files": {
+    "main.css": "/static/css/main.96a2c1f9.css",
+    "main.js": "/static/js/main.a0f3f26f.js",
+    "static/js/313.cc01d795.chunk.js": "/static/js/313.cc01d795.chunk.js",
+    "static/js/817.a3608ffa.chunk.js": "/static/js/817.a3608ffa.chunk.js",
+    "static/js/27.287e82a1.chunk.js": "/static/js/27.287e82a1.chunk.js",
+    "static/media/8.JPG": "/static/media/8.f40fa1e675cbf202cd44.JPG",
+    "static/media/5.jpeg": "/static/media/5.509f17363b61ee7672ee.jpeg",
+    "static/media/11.jpeg": "/static/media/11.945e525aa5b00f4f7881.jpeg",
+    "static/media/21.jpg": "/static/media/21.9fa57b9f4f5b2133821d.jpg",
+    "static/media/alumni-logo.png": "/static/media/alumni-logo.a386ed68b9058fffe043.png",
+    "static/media/12.JPG": "/static/media/12.7441dab3192c023f7ffd.JPG",
+    "static/media/14.jpg": "/static/media/14.8e677a03a5a99ddfbc14.jpg",
+    "static/media/15.jpeg": "/static/media/15.f542115e9e394c4d32cd.jpeg",
+    "static/media/10.jpeg": "/static/media/10.b32588149c3172146cf1.jpeg",
+    "static/media/3.jpg": "/static/media/3.413639bbb7c6b647d7d5.jpg",
+    "static/media/6.jpg": "/static/media/6.e09eea03f51c90294f63.jpg",
+    "static/media/9.jpg": "/static/media/9.22d515f5c983154b33e1.jpg",
+    "static/media/13.jpeg": "/static/media/13.b2427a2d9e036ed6cc4b.jpeg",
+    "static/media/licet-cmp.jpeg": "/static/media/licet-cmp.0cde827c9fa23cfef601.jpeg",
+    "static/media/19.jpg": "/static/media/19.b7b1292be6c9911a8726.jpg",
+    "static/media/20.jpg": "/static/media/20.d2358e602e00747ab300.jpg",
+    "static/media/4.jpeg": "/static/media/4.fd46a5bd79d3a051fd72.jpeg",
+    "static/media/22.jpg": "/static/media/22.16de894a279ae320c68f.jpg",
+    "static/media/16.jpeg": "/static/media/16.a678174bdced50b6d34c.jpeg",
+    "static/media/1.jpg": "/static/media/1.b87e8999e6b6ce44ff90.jpg",
+    "static/media/23.jpg": "/static/media/23.9d9c38cac894cedae61a.jpg",
+    "static/media/24.jpeg": "/static/media/24.481093e7a6999f96b38d.jpeg",
+    "static/media/7.JPG": "/static/media/7.3af43c469b6f4e877822.JPG",
+    "static/media/2.jpg": "/static/media/2.3c5378a2d69ea549de52.jpg",
+    "static/media/18.jpeg": "/static/media/18.378a34a609d7785167b6.jpeg",
+    "static/media/licet-logo-circle.png": "/static/media/licet-logo-circle.577853bd3a28a88b97f8.png",
+    "static/media/17.jpg": "/static/media/17.1307e0494deb5ef1dee3.jpg",
+    "static/media/licet-logo.png": "/static/media/licet-logo.f57b3aebd71b79b463ed.png",
+    "index.html": "/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.96a2c1f9.css",
+    "static/js/main.a0f3f26f.js"
+  ]
+}

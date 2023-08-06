@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect} from "react"
+import React, { useContext, useState, useEffect ,useRef} from "react"
 import { useNavigate } from "react-router-dom"
 // import LICETLogo from "../licet-logo.png";
 import c1 from "../img/1.jpg";
@@ -32,8 +32,14 @@ import lc from "../licet-logo-circle.png";
 import "./LoginPage.css";
 import { AuthContext } from "../../auth/Authcontext";
 
+import { disableReactDevTools } from '@fvilers/disable-react-devtools';
+
+disableReactDevTools();
+
 const LoginPage = () => {
 
+
+  const myElementRef = useRef(null);
   const history = useNavigate();
   const {login, fetchcandi , currentUser, logout} = useContext(AuthContext);
 
@@ -332,7 +338,7 @@ const LoginPage = () => {
   
   // Convert the documents array to JSON format
   
-    
+
     const positions = [...new Set(initialNominees.map(nominee => nominee.position))];
     const nomineesByPosition = {};
     positions.forEach(position => {
@@ -362,20 +368,44 @@ const LoginPage = () => {
     
      
 
-      const logcheck = () => {
-        if (currentUser?.data?.votecnt === 4) {
+      const logcheck = async () => {
+        if (currentUser?.data?.votecnt === 13) {
           alert("You have already voted for all the elections!");
-          logout();
+         await logout();
       
           history("/"); // Redirect to login page
         }
       };
-  
+
+      const DisableInspect = () => {
+        useEffect(() => {
+          // Disable right-click
+          document.addEventListener("contextmenu", (e) => e.preventDefault());
       
+          function ctrlShiftKey(e, keyCode) {
+            return e.ctrlKey && e.shiftKey && e.keyCode === keyCode.charCodeAt(0);
+          }
+      
+          document.onkeydown = (e) => {
+            // Disable F12, Ctrl + Shift + I, Ctrl + Shift + J, Ctrl + U
+            if (
+              e.keyCode === 123 ||
+              ctrlShiftKey(e, "I") ||
+              ctrlShiftKey(e, "J") ||
+              ctrlShiftKey(e, "C") ||
+              (e.ctrlKey && e.keyCode === "U".charCodeAt(0))
+            )
+              return false;
+          };
+        }, []);
+      
+        return <div>{/* Your component JSX here */}</div>;
+      };
 
       const hsubmit = async (e) => {
         e.preventDefault();
-       // enterFullScreen();
+    
+       // enterFullscreen();
 
         try{
               
@@ -384,7 +414,7 @@ const LoginPage = () => {
               //console.log(currentUser?.data?.votecnt);
               logcheck();
               await fetchcandi(jsonDocuments);
-              
+            // DisableInspect();
               // await fetchcandi();  - DB
              // alert('Logged In !!');
               history('/vote');

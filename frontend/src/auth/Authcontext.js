@@ -11,12 +11,33 @@ export const AuthContexProvider = ({ children }) => {
       const [currentCandidates, setCandidates] = useState(
         JSON.parse(localStorage.getItem("candis")) || null);
 
+// ======================== USER SIDE ======================
+
   const login = async (inputs) => {
     const res = await axios.post("http://localhost:5000/api/user/login", inputs);
     const userData = res.data;
     setCurrentUser(userData);
   };
 
+  const fetchcandi = async (candis) => {
+
+    setCandidates(candis);
+  };
+
+
+  const setusercandivote = async (input) => {
+    const res = await axios.post("http://localhost:5000/api/user/vote",input);
+    const userDatavtcnt = res.data;
+    setCurrentUser(userDatavtcnt);
+  };
+
+// ======================== ADMIN SIDE ======================
+
+const adminhome = async () => {
+  const res = await axios.post("http://localhost:5000/api/admin-login");
+  const usersData = res.data;
+  setCurrentUsers(usersData);
+};
 
   const viewCandidates= async () => {
     const res = await axios.post("http://localhost:5000/api/admin/candidate-upload");
@@ -25,12 +46,7 @@ export const AuthContexProvider = ({ children }) => {
   };
 
 
-  const adminhome = async () => {
-    const res = await axios.post("http://localhost:5000/api/admin-login");
-    const usersData = res.data;
-    setCurrentUsers(usersData);
-  };
-
+// ========================  DUMMY ADDITIONAL ======================
 
   const getCandidatesvtcnt = async (input) => {
     const res = await axios.post("http://localhost:5000/api/user/vote",input);
@@ -44,11 +60,7 @@ export const AuthContexProvider = ({ children }) => {
     setCurrentUser(userb);
   };
 
-  const setusercandivote = async (input) => {
-    const res = await axios.post("http://localhost:5000/api/user/vote",input);
-    const userbio = res.data;
-    setCurrentUser(userbio);
-  };
+
 
   // const fetchcandi = async () => {
   //   const res = await axios.get("http://localhost:5000/api/user/login");
@@ -56,10 +68,6 @@ export const AuthContexProvider = ({ children }) => {
   //   setCandidates(userData);
   // };
 
-  const fetchcandi = async (candis) => {
-
-    setCandidates(candis);
-  };
 
 
   const logout = async () => {

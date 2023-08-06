@@ -28,6 +28,10 @@ const newSchema=new mongoose.Schema({
     votecnt:{
         type: Number ,
         required:true
+    },
+    voted:{
+        type: Boolean ,
+        required:true
     }
 })
 

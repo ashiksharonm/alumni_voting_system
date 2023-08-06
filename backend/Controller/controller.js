@@ -211,7 +211,7 @@ const fetchCandidates= async function ( req,res) {
 
 
 
-//==================> Fetch user , candidates Bio <=======================
+//==================> SET user , candidates Bio votecnt <=======================
 
 const setusrcandivtcnt = async (req, res) => {
   try {
@@ -219,8 +219,8 @@ const setusrcandivtcnt = async (req, res) => {
     let Body = req.body;
     const { id , regno } = Body;
     
-   console.log("USER"+regno);
-   console.log("Cadidate"+id);
+   console.log("USER: "+regno);
+   console.log("Cadidate: "+id);
    
 
      
