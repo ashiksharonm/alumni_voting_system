@@ -172,7 +172,6 @@ const Vote = () => {
       }));
 
       //setVoteCard(true);
-
       bio.id = id;
       bio.regno = reno;
       const updatedVotedStatus = { ...initialVotedStatus };
