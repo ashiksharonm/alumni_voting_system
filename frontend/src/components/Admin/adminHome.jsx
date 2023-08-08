@@ -13,7 +13,7 @@ const AdminHome = () => {
     president: false,
     vicePresident: false,
     secretary: false,
-    // treasurer: false,
+    treasurer: false,
     executives: false,
   });
   const handleLogout = async () => {
@@ -21,17 +21,17 @@ const AdminHome = () => {
     await logout();
   };
 
-  const presidentArray = currentUsers.data.President ;
-  const vpresidentArray = currentUsers.data.VicePresident ;
-  // const treasurerArray = currentUsers.data.Treasurer  ;
-  const execrArray = currentUsers.data.Executive ;
-  const JsArray = currentUsers.data.JointSecretary ;
+  const presidentArray = currentUsers.data.President;
+  const vpresidentArray = currentUsers.data.VicePresident;
+  const treasurerArray = currentUsers.data.Treasurer;
+  const execrArray = currentUsers.data.Executive;
+  const JsArray = currentUsers.data.JointSecretary;
 
-  const presidentLength = presidentArray.length ;
-  const vpresidentLength = vpresidentArray.length ;
-  // const tLength = treasurerArray.length ;
-  const exeLength = execrArray.length ;
-  const JsLength = JsArray.length ;
+  const presidentLength = presidentArray.length;
+  const vpresidentLength = vpresidentArray.length;
+  const tLength = treasurerArray.length;
+  const exeLength = execrArray.length;
+  const JsLength = JsArray.length;
 
   let president_Totalvotes = 0;
   for (let index = 0; index < presidentLength; index++) {
@@ -44,11 +44,11 @@ const AdminHome = () => {
     Vicepresident_Totalvotes =
       Vicepresident_Totalvotes + currentUsers.data.VicePresident[index].votecnt;
   }
-  // let treasurer_Totalvotes = 0;
-  // for (let index = 0; index < tLength; index++) {
-  //   treasurer_Totalvotes =
-  //     treasurer_Totalvotes + currentUsers.data.Treasurer[index].votecnt;
-  // }
+  let treasurer_Totalvotes = 0;
+  for (let index = 0; index < tLength; index++) {
+    treasurer_Totalvotes =
+      treasurer_Totalvotes + currentUsers.data.Treasurer[index].votecnt;
+  }
   let exec_Totalvotes = 0;
   for (let index = 0; index < exeLength; index++) {
     exec_Totalvotes =
@@ -75,21 +75,32 @@ const AdminHome = () => {
     }));
   };
 
-
-
   return (
     <div className="admin-container">
       <div className="vote-container">
         <div className="header">
           <div className="header-left">
             <Link to="/admin">
-              <img src={LICETLogo} alt="LICET Logo" className="logo" style={{"height" : "120px" ,  "width": "90px", "margin-left":"10px"}}/>
+              <img
+                src={LICETLogo}
+                alt="LICET Logo"
+                className="logo"
+                style={{
+                  height: "120px",
+                  width: "90px",
+                  "margin-left": "10px",
+                }}
+              />
             </Link>
           </div>
           <div className="header-center">
             <h1
               className="election-title"
-              style={{ "font-size": "30px", "margin-right": "-220px", "color" : "#d3b25f" }}
+              style={{
+                "font-size": "30px",
+                "margin-right": "-220px",
+                color: "#d3b25f",
+              }}
             >
               LICET ALUMNI ASSOCIATION ELECTION
             </h1>
@@ -136,14 +147,13 @@ const AdminHome = () => {
               <br />
               {/* Display any other relevant information */}
             </div>
-            {/* <div className="election-status-card">
+            <div className="election-status-card">
               <h2>Treasurer</h2>
               <br />
               <p>Number of Candidates: {tLength}</p>
               <p>Total Votes: {treasurer_Totalvotes}</p>
               <br />
-              
-            </div> */}
+            </div>
             <div className="election-status-card">
               <h2>Executives</h2>
               <br />

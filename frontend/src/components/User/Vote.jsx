@@ -8,10 +8,10 @@ const VOTED_STATUS_KEY = "votedStatus";
 
 const Vote = () => {
   const {
-    logout,              // getCandidatesvtcnt,  currentUsers, setUservtcnt,    setCandidates,  setUservtcnt,  fetchcandi,
+    logout, // getCandidatesvtcnt,  currentUsers, setUservtcnt,    setCandidates,  setUservtcnt,  fetchcandi,
     currentUser,
     currentCandidates,
-    setusercandivote
+    setusercandivote,
   } = useContext(AuthContext);
 
   const [nominees, setNominees] = useState(currentCandidates);
@@ -29,17 +29,17 @@ const Vote = () => {
     President: nominees["President"].map((nominee) => ({
       ...nominee,
       voted: initialVotedStatus[nominee.id] || 0,
-      position : "President",
+      position: "President",
     })),
-    "VicePresident": nominees["VicePresident"].map((nominee) => ({
+    VicePresident: nominees["VicePresident"].map((nominee) => ({
       ...nominee,
       voted: initialVotedStatus[nominee.id] || 0,
     })),
-    // Treasurer: nominees["Treasurer"].map((nominee) => ({
-    //   ...nominee,
-    //   voted: initialVotedStatus[nominee.id] || false,
-    // })),
-    "JointSecretary": nominees["JointSecretary"].map((nominee) => ({
+    Treasurer: nominees["Treasurer"].map((nominee) => ({
+      ...nominee,
+      voted: initialVotedStatus[nominee.id] || 0,
+    })),
+    JointSecretary: nominees["JointSecretary"].map((nominee) => ({
       ...nominee,
       voted: initialVotedStatus[nominee.id] || 0,
     })),
@@ -56,23 +56,21 @@ const Vote = () => {
     regno: "",
   });
 
-  const logcheck = async() => {
+  const logcheck = async () => {
     if (currentUser?.data?.votecnt === 13) {
       alert("Thank you for voting!!");
       // Redirect to login page
       await logout();
-      history("/"); 
-      localStorage.setItem(VOTED_STATUS_KEY,null);
+      history("/");
+      localStorage.setItem(VOTED_STATUS_KEY, null);
     }
   };
 
-
   useEffect(() => {
     setTimeout(() => {
-     logcheck()
+      logcheck();
     }, 1000);
   });
-
 
   const vsubmit = async (input) => {
     try {
@@ -86,24 +84,24 @@ const Vote = () => {
             pos = nominee.position;
             return { ...nominee, voted: 1 };
           }
-            return  nominee;
+          return nominee;
         });
       }
       setNominees(updatedNominees);
-      
+
       const updatedVotedStatus = { ...initialVotedStatus };
       console.log(updatedVotedStatus);
-  
- if ( pos != "Executive")
-{      updatedNominees[pos] = updatedNominees[pos].map((nominee) => {
-        if (nominee.id != input.id) {
-          updatedVotedStatus[nominee.id] = -1 ;
-        }
+
+      if (pos != "Executive") {
+        updatedNominees[pos] = updatedNominees[pos].map((nominee) => {
+          if (nominee.id != input.id) {
+            updatedVotedStatus[nominee.id] = -1;
+          }
           return nominee;
-      });
-}
+        });
+      }
       updatedVotedStatus[input.id] = 1;
- 
+
       localStorage.setItem(
         VOTED_STATUS_KEY,
         JSON.stringify(updatedVotedStatus)
@@ -128,7 +126,7 @@ const Vote = () => {
     setVotesForExecutive(initialVotesCount);
   }, [initialNominees]);
 
-// ====================== Executive Section ======================================
+  // ====================== Executive Section ======================================
 
   const handleVotee = async (id, position) => {
     if (
@@ -156,7 +154,7 @@ const Vote = () => {
     }
   };
 
-// ====================== Other Section ======================================
+  // ====================== Other Section ======================================
 
   const handleVote = async (id, position) => {
     if (
@@ -176,16 +174,10 @@ const Vote = () => {
       bio.regno = reno;
       const updatedVotedStatus = { ...initialVotedStatus };
 
-      if (updatedVotedStatus[id] !== 1) 
-         await vsubmit(bio);
-       else 
-       alert(`You Already Voted for the ${position}`);
+      if (updatedVotedStatus[id] !== 1) await vsubmit(bio);
+      else alert(`You Already Voted for the ${position}`);
     }
   };
-
-
-  
-  
 
   const handleLogout = async () => {
     if (currentUser?.data?.votecnt === 13) {
@@ -195,7 +187,7 @@ const Vote = () => {
       if (confirmed) {
         await logout();
         history("/"); // Redirect to login page
-        localStorage.setItem(VOTED_STATUS_KEY,null);
+        localStorage.setItem(VOTED_STATUS_KEY, null);
       }
     } else {
       alert("You must vote for all elections before logging out.");
@@ -206,15 +198,15 @@ const Vote = () => {
     const handleBeforeUnload = (event) => {
       event.preventDefault();
       return (event.returnValue = "Are you sure you want to leave?");
-    };                                                                     //Deletion of data in Accidental  touch
+    }; //Deletion of data in Accidental  touch
 
     window.addEventListener("beforeunload", handleBeforeUnload);
 
     return async () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
-        await logout();
-        history('/');
-      localStorage.setItem(VOTED_STATUS_KEY,null);
+      await logout();
+      history("/");
+      localStorage.setItem(VOTED_STATUS_KEY, null);
     };
   }, []);
 
@@ -222,13 +214,27 @@ const Vote = () => {
     <div className="vote-container">
       <div className="header">
         <div className="header-left">
-          <img src={LICETLogo} alt="LICET Logo" style={{"height" : "150px" ,  "width": "100px", "marginLeft":"10px"}} className="logo" />
+          <img
+            src={LICETLogo}
+            alt="LICET Logo"
+            style={{ height: "150px", width: "100px", marginLeft: "10px" }}
+            className="logo"
+          />
         </div>
         <div className="header-center">
-          <h2 className="election-title" style={{"fontSize": "35px", "marginLeft":"5%"}}>LICET ALUMNI COUNCIL ELECTION</h2>
+          <h2
+            className="election-title"
+            style={{ fontSize: "35px", marginLeft: "5%" }}
+          >
+            LICET ALUMNI COUNCIL ELECTION
+          </h2>
         </div>
         <div className="header-right">
-          <button className="logout-button" onClick={handleLogout}>
+          <button
+            className="logout-button"
+            style={{ color: "#1e1445" }}
+            onClick={handleLogout}
+          >
             Logout
           </button>
         </div>
@@ -251,10 +257,10 @@ const Vote = () => {
                 <p>{nominee.batch}</p>
                 <br />
               </div>
-              { (nominee.voted  === 0 || nominee.voted  === -1 ) ? (
+              {nominee.voted === 0 || nominee.voted === -1 ? (
                 <button
                   onClick={() => handleVote(nominee.id, "President")}
-                  disabled={ nominee.voted  === -1  ? true : false || isVoting } // Disable button while voting
+                  disabled={nominee.voted === -1 ? true : false || isVoting} // Disable button while voting
                 >
                   {isVoting ? "Voting..." : "Vote"}
                 </button>
@@ -265,7 +271,6 @@ const Vote = () => {
           ))}
         </div>
       </div>
-
       <br />
       <br />
       <br />
@@ -286,10 +291,10 @@ const Vote = () => {
                 <p>{nominee.batch}</p>
                 <br />
               </div>
-              {(nominee.voted  === 0 || nominee.voted  === -1 ) ? (
+              {nominee.voted === 0 || nominee.voted === -1 ? (
                 <button
                   onClick={() => handleVote(nominee.id, "VicePresident")}
-                  disabled={ nominee.voted  === -1  ? true : false || isVoting } // Disable button while voting
+                  disabled={nominee.voted === -1 ? true : false || isVoting} // Disable button while voting
                 >
                   {isVoting ? "Voting..." : "Vote"}
                 </button>
@@ -303,8 +308,7 @@ const Vote = () => {
       <br />
       <br />
       <br />
-
-      {/* Treasurer Section
+      {/* Treasurer Section */}
       <div className="election-section">
         <h2>Treasurer</h2>
         <div className="nominee-list">
@@ -321,10 +325,10 @@ const Vote = () => {
                 <p>{nominee.batch}</p>
                 <br />
               </div>
-              {(nominee.voted  === 0 || nominee.voted  === -1 ) ? (
+              {nominee.voted === 0 || nominee.voted === -1 ? (
                 <button
                   onClick={() => handleVote(nominee.id, "Treasurer")}
-                  disabled={ nominee.voted  === -1  ? true : false || isVoting } // Disable button while voting
+                  disabled={nominee.voted === -1 ? true : false || isVoting} // Disable button while voting
                 >
                   {isVoting ? "Voting..." : "Vote"}
                 </button>
@@ -337,8 +341,7 @@ const Vote = () => {
       </div>
       <br />
       <br />
-      <br /> */}
-
+      <br />
       {/* JointSecretary Section */}
       <div className="election-section">
         <h2>Joint Secretary</h2>
@@ -356,10 +359,10 @@ const Vote = () => {
                 <p>{nominee.batch}</p>
                 <br />
               </div>
-              {(nominee.voted  === 0 || nominee.voted  === -1 ) ? (
+              {nominee.voted === 0 || nominee.voted === -1 ? (
                 <button
                   onClick={() => handleVote(nominee.id, "JointSecretary")}
-                  disabled={ nominee.voted  === -1  ? true : false || isVoting }  // Disable button while voting
+                  disabled={nominee.voted === -1 ? true : false || isVoting} // Disable button while voting
                 >
                   {isVoting ? "Voting..." : "Vote"}
                 </button>
@@ -373,42 +376,43 @@ const Vote = () => {
       <br />
       <br />
       <br />
-
       {/* Executives Section */}
-    <div className="election-section">
-      <h2>Executive</h2>
-      <div className="nominee-list">
-        {initialNominees["Executive"].map((nominee) => (
-          <div
-            className={`nominee-card ${nominee.voted ? "visible" : ""}`}
-            key={nominee.id}
-          >
-            <div className="nominee-image">
-              <img src={nominee.photo} alt={nominee.name} />
+      <div className="election-section">
+        <h2>Executive Committee Members</h2>
+        <div className="nominee-list">
+          {initialNominees["Executive"].map((nominee) => (
+            <div
+              className={`nominee-card ${nominee.voted ? "visible" : ""}`}
+              key={nominee.id}
+            >
+              <div className="nominee-image">
+                <img src={nominee.photo} alt={nominee.name} />
+              </div>
+              <div className="nominee-details">
+                <h3>{nominee.name}</h3>
+                <p>{nominee.batch}</p>
+                <br />
+              </div>
+              {!nominee.voted ? (
+                <button
+                  onClick={() => handleVotee(nominee.id, nominee.position)}
+                  disabled={
+                    votesForExecutive >= maxVotesForExecutive || isVoting
+                  } // Disable button if max votes are reached or while voting
+                  className={
+                    selectedNominees[nominee.position] ? "disabled" : ""
+                  }
+                >
+                  {isVoting ? "Voting..." : "Vote"}
+                </button>
+              ) : (
+                <p className="voted">Voted</p>
+              )}
             </div>
-            <div className="nominee-details">
-              <h3>{nominee.name}</h3>
-              <p>{nominee.batch}</p>
-              <br />
-            </div>
-            {!nominee.voted ? (
-              <button
-                onClick={() => handleVotee(nominee.id, nominee.position)}
-                disabled={
-                  votesForExecutive >= maxVotesForExecutive || isVoting
-                } // Disable button if max votes are reached or while voting
-                className={selectedNominees[nominee.position] ? "disabled" : ""}
-              >
-                {isVoting ? "Voting..." : "Vote"}
-              </button>
-            ) : (
-              <p className="voted">Voted</p>
-            )}
-          </div>
-        ))}
-      </div>
-      <br/> <br/>
-        <br/> <br/>
+          ))}
+        </div>
+        <br /> <br />
+        <br /> <br />
         {/* <div className="footer-right">
           <button className="logout-button1" onClick={handleLogout}>
             Logout
@@ -416,7 +420,6 @@ const Vote = () => {
         </div> */}
       </div>
     </div>
-   
   );
 };
 
